@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import data from "../json/data.json"
+import PinnedNote from "../components/PinnedNote";
 function MainMenu() {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [productsData, setProductsData] = useState([]);
@@ -52,8 +53,8 @@ function MainMenu() {
             }
         </div>
     ) : (
-        <div className="ProductListPage">
-            <p></p>
+        <div>
+            <PinnedNote />
         </div>
     );
 }

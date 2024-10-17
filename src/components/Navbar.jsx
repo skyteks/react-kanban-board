@@ -18,7 +18,6 @@ function Navbar() {
         </div>
 
         <div className="w-1/4 flex justify-end mr-4">
-          {/* User Profile Button */}
             <button className="flex items-center text-l py-1">
               <img
                 src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"}

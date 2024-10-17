@@ -6,14 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Colors */
-:root {
-    --primary-color: #1E40AF;
-    --secondary-color: #3B82F6;
-    --background-color: #F3F4F6;
-    --text-color: #111827;
-}
-
 /* Base styles */
 html {
   font-size: 16px;
@@ -21,11 +13,10 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #F3F4F6;
+  background-color: #cfba81;
   color: #111827;
   margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  color: black;
 }
 
 /* Styles */
