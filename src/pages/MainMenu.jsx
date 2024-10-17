@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import ProductListContainer from "../components/ProductListContainer";
 import axios from "axios";
-
-function ProductListPage() {
+import data from "../json/data.json"
+function MainMenu() {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [productsData, setProductsData] = useState([]);
-    const url = "https://fakestoreapi.com/products/";
+    const url = "../json/";
 
     useEffect(getData, []);
 
@@ -17,10 +16,9 @@ function ProductListPage() {
     function getData() {
         if (true) {
             fetch(url)
-                .then((result) => {
-                    //console.log(result);
-                    return result.json();
-                })
+                //.then((result) => {
+                //    return result.json();
+                //})
                 .then((result) => {
                     console.log(result);
                     setProductsData(result);
@@ -55,13 +53,9 @@ function ProductListPage() {
         </div>
     ) : (
         <div className="ProductListPage">
-            {productsData.map((product) => {
-                return (
-                    <ProductListContainer key={product.id} productData={product} click={onClick}/>
-                );
-            })}
+            <p></p>
         </div>
     );
 }
 
-export default ProductListPage;
+export default MainMenu;

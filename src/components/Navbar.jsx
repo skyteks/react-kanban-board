@@ -1,5 +1,4 @@
 import logo from "./../assets/logo-ironhack-blue.png";
-import cart from "./../assets/cart.png";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -15,15 +14,15 @@ function Navbar() {
         </div>
 
         <div className="flex justify-center w-1/2">
-          <span className="text-xl">React Fake Store</span>
+          <span className="text-xl">React Kanban-Board</span>
         </div>
 
         <div className="w-1/4 flex justify-end mr-4">
           {/* User Profile Button */}
             <button className="flex items-center text-l py-1">
               <img
-                src={cart}
-                alt="Cart icon"
+                src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"}
+                alt="burger menu"
                 className="h-10 w-auto border-solid border border-white rounded-3xl p-1"
               />
             </button>
