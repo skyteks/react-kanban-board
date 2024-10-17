@@ -11,7 +11,7 @@ function MainMenu() {
 
     function onClick(id) {
         console.log(id);
-        
+
     }
 
     function getData() {
@@ -46,6 +46,12 @@ function MainMenu() {
         }
     }
 
+    const textArray = [
+        "Grab a letter of a random color.",
+        "Grab a red pin.",
+        "Go to the pin-board and pin the letter on the wall."
+    ];
+
     return !dataLoaded ? (
         <div>
             <p>loading...</p>
@@ -54,7 +60,7 @@ function MainMenu() {
         </div>
     ) : (
         <div>
-            <PinnedNote />
+            <PinnedNote noteTextArray={textArray} key={textArray.join()} />
         </div>
     );
 }
