@@ -63,7 +63,7 @@ function Board() {
                         <td>
                             {
                                 productsData
-                                .filter((entry) => entry.status === undefined)
+                                .filter((entry) => entry.status === undefined || entry.status === "backlog")
                                 .map((entry) => {
                                     return (
                                         <PinnedNote entry={entry} key={entry.id} />

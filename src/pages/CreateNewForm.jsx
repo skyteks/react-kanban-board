@@ -25,10 +25,16 @@ function CreateNewForm() {
                 <input type="text" name="title" onChange={handleFormInput} />
                 <br />
                 <FormTextfields count={count} doChange={handleFormInput} />
-                {
-                    count <= maxCount &&
-                    <button type="button" onClick={() => setCount(count + 1)}>Add another text-field</button>
-                }
+                {count <= maxCount && <button type="button" onClick={() => setCount(count + 1)}>Add another text-field</button>}
+                <br />
+                <label htmlFor="status">Status</label>
+                <select name="status" id="status" onChange={handleFormInput} >
+                    <option value="backlog">Backlog</option>
+                    <option value="todo">To Do</option>
+                    <option value="doing">Doing</option>
+                    <option value="test">Test</option>
+                    <option value="done">Done</option>
+                </select>
                 <br />
                 <button type="submit">Create</button>
             </form>
