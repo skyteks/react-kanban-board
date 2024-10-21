@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import pin from "../assets/pin.png"
 import NoteText from "./NoteText";
 
-function PinnedNote({ noteTextArray }) {
+function PinnedNote({ entry }) {
 
     const colors = ["rgb(255, 255, 113)", "rgb(204, 251, 135)", "rgb(168, 233, 251)", "rgb(255, 191, 252)"];
     const [color, setColor] = useState("white");
@@ -21,7 +21,7 @@ function PinnedNote({ noteTextArray }) {
                 <img src={pin} style={{ width: "50px", height: "50px", alignSelf: "center", marginLeft: "25px", position: "absolute" }} />
                 <div style={{ width: "100%", height: "100%", backgroundColor: color }}>
                     <div style={{ height: "80%", margin: "15% 5% 5%", backgroundColor: "rgba(0,0,0,0)", }}>
-                        <NoteText noteTextArray={(noteTextArray === undefined ? [] : noteTextArray)} />
+                        <NoteText entry={entry} />
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 function FormTextfields({count, doChange}) {
     let temp = [];
     for (let i = 1; i < (count + 1); i++) {
-        temp = [...temp, "text" + i]
+        temp.push("text" + i)
     }
 
     return temp.map((name, index) => {

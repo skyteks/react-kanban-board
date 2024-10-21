@@ -13,7 +13,6 @@ function CreateNewForm() {
     }
 
     function handleSubmit(e) {
-
         e.preventDefault();
         console.log("Submitted: ", obj);
     }

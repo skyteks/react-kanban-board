@@ -1,11 +1,18 @@
 import pin from "../assets/pin.png"
 
-function NoteText({ noteTextArray }) {
+function NoteText({ entry }) {
+
+    let temp = [];
+    for (const [key, value] of Object.entries(entry)) {
+        if (key.toString().includes("text")) {
+            temp.push(value);
+        }
+    }
 
     return (
         <div >
             <ul >
-                {noteTextArray.map((text) => {
+                {temp.map((text) => {
                     return (
                         <li key={text}>
                             <p>{text}</p>

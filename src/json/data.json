@@ -2,6 +2,14 @@
     {
         "id": 0,
         "title": "Test",
-        "description1": "testing placeholder"
+        "text1": "Grab a letter of a random color.",
+        "text2": "Grab a red pin.",
+        "text3": "Go to the pin-board and pin the letter on the wall."
+    },
+    {
+        "id": 0,
+        "title": "Test 2",
+        "text1": "Build a React Webapp.",
+        "text2": "Put some data online."
     }
 ]
