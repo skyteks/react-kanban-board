@@ -50,11 +50,75 @@ function Board() {
                 <div>
                     <p>loading...</p>
                 </div>
-            ) : productsData.map((entry) => {
-                return (
-                    <PinnedNote entry={entry} key={entry.id} />
-                )
-            })}
+            ) : (
+                <table>
+                    <tr>
+                        <th style={{width: "400px"}}>Backlog</th>
+                        <th style={{width: "400px"}}>To Do</th>
+                        <th style={{width: "400px"}}>Doing</th>
+                        <th style={{width: "400px"}}>Test</th>
+                        <th style={{width: "400px"}}>Done</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {
+                                productsData
+                                .filter((entry) => entry.status === undefined)
+                                .map((entry) => {
+                                    return (
+                                        <PinnedNote entry={entry} key={entry.id} />
+                                    )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                productsData
+                                .filter((entry) => entry.status === "todo")
+                                .map((entry) => {
+                                    return (
+                                        <PinnedNote entry={entry} key={entry.id} />
+                                    )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                productsData
+                                .filter((entry) => entry.status === "doing")
+                                .map((entry) => {
+                                    return (
+                                        <PinnedNote entry={entry} key={entry.id} />
+                                    )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                productsData
+                                .filter((entry) => entry.status === "test")
+                                .map((entry) => {
+                                    return (
+                                        <PinnedNote entry={entry} key={entry.id} />
+                                    )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                productsData
+                                .filter((entry) => entry.status === "done")
+                                .map((entry) => {
+                                    return (
+                                        <PinnedNote entry={entry} key={entry.id} />
+                                    )
+                                })
+                            }
+                        </td>
+                    </tr>
+                </table>
+            )
+            }
         </div>
     );
 }

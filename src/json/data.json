@@ -2,14 +2,21 @@
     {
         "id": 0,
         "title": "Test",
-        "text1": "Grab a letter of a random color.",
-        "text2": "Grab a red pin.",
-        "text3": "Go to the pin-board and pin the letter on the wall."
+        "text1": "testing..."
     },
     {
-        "id": 0,
-        "title": "Test 2",
+        "id": 1,
+        "title": "Post-it",
+        "text1": "Grab a letter of a random color.",
+        "text2": "Grab a red pin.",
+        "text3": "Go to the pin-board and pin the letter on the wall.",
+        "status": "done"
+    },
+    {
+        "id": 2,
+        "title": "React",
         "text1": "Build a React Webapp.",
-        "text2": "Put some data online."
+        "text2": "Put some data online.",
+        "status": "todo"
     }
 ]
