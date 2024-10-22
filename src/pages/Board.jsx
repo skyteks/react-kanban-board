@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 //import axios from "axios";
-import data from "../json/data.json"
 import PinnedNote from "../components/PinnedNote";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
-    const [productsData, setProductsData] = useState(data);//useState([]);
-    const url = "../json/";
+    const [productsData, setProductsData] = useState([]);
+    const url = "https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
 
     useEffect(getData, []);
 
     function getData() {
-        if (false) {
+        if (true) {
             fetch(url)
-                //.then((result) => {
-                //    return result.json();
-                //})
+                .then((result) => {
+                    console.log(result);
+                    return result.json();
+                })
                 .then((result) => {
                     console.log(result);
                     setProductsData(result);
+                    setDataLoaded(true);
                 })
                 .catch((error) => {
                     console.error(error);
                 })
                 .finally(() => {
-                    setDataLoaded(true);
                 });
         }
         /*
@@ -62,7 +62,7 @@ function Board() {
                         </tr>
                         <tr>
                             <td>
-                                {
+                                {productsData &&
                                     productsData
                                         .filter((entry) => entry.status === undefined || entry.status === "backlog")
                                         .map((entry) => {

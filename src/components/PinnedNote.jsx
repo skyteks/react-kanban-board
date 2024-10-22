@@ -7,7 +7,7 @@ function PinnedNote({ entry }) {
     const colors = ["rgb(255, 255, 113)", "rgb(204, 251, 135)", "rgb(168, 233, 251)", "rgb(255, 191, 252)"];
     const [color, setColor] = useState("white");
 
-    const maxAngle = 15;
+    const maxAngle = 10;
     const [angle, setAngle] = useState(0);
 
     useEffect(() => {
