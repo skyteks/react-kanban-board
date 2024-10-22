@@ -7,16 +7,24 @@ function CreateNewForm() {
     const maxCount = 4;
     const [obj, setObj] = useState({});
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
+    const [formChanged, setFormChanged] = useState(false);
 
     function handleFormInput(e) {
         obj[e.target.name] = e.target.value;
         setObj(obj);
+        setFormChanged(true);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Submitted: ", obj);
         postData();
+        clear();
+    }
+
+    function clear() {
+        setFormChanged(false);
+        setObj({});
     }
 
     function postData() {
@@ -49,7 +57,8 @@ function CreateNewForm() {
                     <option value="done">Done</option>
                 </select>
                 <br />
-                <button type="submit">Create</button>
+                <button type="reset" onClick={clear}>Clear</button>
+                <button type="submit" disabled={formChanged}>Create</button>
             </form>
         </div>
     );
