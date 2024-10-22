@@ -14,9 +14,9 @@ function App() {
     }
 
     return (
-        <div className="App relative z-20 pt-20 h-full">
+        <div className="App" style={{height: "100%"}}>
             <Navbar click1={toggleShowSide} />
-            {showSide && <SidePanel doClick={toggleShowSide} />}
+            <SidePanel doClick={toggleShowSide} display={showSide}/>
             <Routes>
                 <Route path="/" element={<Board />} />
                 <Route path="/create/" element={<CreateNewForm />} />

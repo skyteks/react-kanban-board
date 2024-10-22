@@ -1,34 +1,23 @@
 import logo from "./../assets/logo-ironhack-blue.png";
 import { Link } from "react-router-dom";
 
-function Navbar({click1}) {
-  return (
-    <nav className="bg-blue-600 text-white shadow-md fixed top-0 left-0 w-full z-50">
-      <div className="flex justify-between h-20 items-center px-4">
-        <div className="flex items-center space-x-2 w-1/4">
-          <Link to="/">
-            <button className="flex items-center text-l py-1">
-              <img src={logo} alt="Logo" className="h-8 w-auto" />
-            </button>
-          </Link>
-        </div>
+function Navbar({ click1 }) {
+    return (
+        <nav>
+            <Link to="/" style={{ height: "100%", minHeigh: "20px" }}>
+                <img src={logo} alt="Logo" style={{ height: "100%" }} />
+            </Link>
 
-        <div className="flex justify-center w-1/2">
-          <span className="text-xl">React Kanban-Board</span>
-        </div>
+            <h1>React Kanban-Board</h1>
 
-        <div className="w-1/4 flex justify-end mr-4">
-            <button onClick={click1} className="flex items-center text-l py-1">
-              <img
-                src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"}
-                alt="burger menu"
-                className="h-10 w-auto border-solid border border-white rounded-3xl p-1"
-              />
+            <button onClick={click1} style={{ height: "100%", display: "flex", backgroundColor: "transparent", border: "none" }}>
+                <img
+                    src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"} alt="burger menu"
+                    style={{ height: "100%", minHeigh: "20px", borderRadius: "50%" }}
+                />
             </button>
-        </div>
-      </div>
-    </nav>
-  );
+        </nav>
+    );
 }
 
 export default Navbar;

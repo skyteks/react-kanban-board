@@ -42,7 +42,7 @@ function Board() {
     }
 
     return (
-        <div>
+        <main>
             {!dataLoaded ? (
                 <div>
                     <p>loading...</p>
@@ -51,11 +51,11 @@ function Board() {
                 <table>
                     <tbody>
                         <tr>
-                            <th style={{ width: "400px" }}>Backlog</th>
-                            <th style={{ width: "400px" }}>To Do</th>
-                            <th style={{ width: "400px" }}>Doing</th>
-                            <th style={{ width: "400px" }}>Test</th>
-                            <th style={{ width: "400px" }}>Done</th>
+                            <th style={{ width: "20%" }}>Backlog</th>
+                            <th style={{ width: "20%" }}>To Do</th>
+                            <th style={{ width: "20%" }}>Doing</th>
+                            <th style={{ width: "20%" }}>Test</th>
+                            <th style={{ width: "20%" }}>Done</th>
                         </tr>
                         <tr>
                             <td>
@@ -118,7 +118,7 @@ function Board() {
                 </table>
             )
             }
-        </div>
+        </main>
     );
 }
 

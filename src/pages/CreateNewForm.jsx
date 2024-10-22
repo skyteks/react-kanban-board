@@ -40,8 +40,8 @@ function CreateNewForm() {
     }
 
     return (
-        <div style={{ margin: "20px" }}>
-            <form onSubmit={handleSubmit}>
+        <main >
+            <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" onChange={handleFormInput} />
                 <br />
@@ -60,7 +60,7 @@ function CreateNewForm() {
                 <button type="reset" onClick={clear}>Clear</button>
                 <button type="submit" disabled={formChanged}>Create</button>
             </form>
-        </div>
+        </main>
     );
 }
 

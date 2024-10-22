@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-function SidePanel({doClick}) {
+function SidePanel({ doClick, display }) {
 
+    const style = display ? null : { display: "none" };
     return (
-        <div className="bg-blue-600 text-white shadow-md fixed top-20 right-0 z-40" style={{ width: "200px", height: "100%" }}>
-            <ol style={{ margin: "20px" }}>
-                <li><NavLink onClick={doClick} to={"/"} className="text-white">Board</NavLink></li>
-                <li><NavLink onClick={doClick} to={"/create"} className="text-white">Create New</NavLink></li>
-            </ol>
+        <div className="side-panel" style={style} >
+            <NavLink onClick={doClick} to={"/"} className="text-white">Board</NavLink>
+            <NavLink onClick={doClick} to={"/create"} className="text-white">Create New</NavLink>
         </div>
     );
 }
