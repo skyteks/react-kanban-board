@@ -1,11 +1,12 @@
 import { useState } from "react";
+import axios from "axios";
 import FormTextfields from "../components/FormTextfields";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
     const maxCount = 4;
-
     const [obj, setObj] = useState({});
+    const url = "https://kanban-board-rest-api.up.railway.app/posts";
 
     function handleFormInput(e) {
         obj[e.target.name] = e.target.value;
@@ -15,7 +16,19 @@ function CreateNewForm() {
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Submitted: ", obj);
-        // TODO: submit data
+        postData();
+    }
+
+    function postData() {
+        axios.post(url, obj)
+            .then((result) => {
+                console.log("success", result);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+            });
     }
 
     return (

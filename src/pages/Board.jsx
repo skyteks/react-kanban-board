@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
-//import axios from "axios";
+import axios from "axios";
 import PinnedNote from "../components/PinnedNote";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
     const [productsData, setProductsData] = useState([]);
-    const url = "https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
+    const url = "https://kanban-board-rest-api.up.railway.app/posts";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
 
     useEffect(getData, []);
 
     function getData() {
         if (true) {
+            axios.get(url)
+                .then((result) => {
+                    setProductsData(result.data);
+                    setDataLoaded(true);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                });
+        }
+        else {
             fetch(url)
                 .then((result) => {
                     console.log(result);
                     return result.json();
                 })
                 .then((result) => {
-                    console.log(result);
                     setProductsData(result);
                     setDataLoaded(true);
                 })
@@ -26,22 +37,8 @@ function Board() {
                 })
                 .finally(() => {
                 });
+            
         }
-        /*
-        else {
-            axios.get(url)
-                .then((result) => {
-                    console.log(result.data);
-                    setProductsData(result.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setDataLoaded(true);
-                });
-        }
-        */
     }
 
     return (
