@@ -78,12 +78,12 @@ table {
   flex-basis: 100%;
 }
 
-td,
-th {
+th, td {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
+  align-items: center;
 }
 
 tr {
