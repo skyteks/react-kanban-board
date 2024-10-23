@@ -11,14 +11,18 @@ function CreateNewForm() {
     const [formChanged, setFormChanged] = useState(false);
 
     function handleFormInput(e) {
-        obj[e.target.name] = e.target.value;
+        if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
+            delete obj[e.target.name];
+        }
+        else {
+            obj[e.target.name] = e.target.value;
+        }
         setObj(obj);
         setFormChanged(true);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Submitted: ", obj);
         postData();
         setFormChanged(false);
     }
@@ -26,9 +30,15 @@ function CreateNewForm() {
     function clear() {
         setFormChanged(false);
         setObj({});
+        setCount(1);
+        document.querySelector('textarea[name="text1"]').setAttribute('style', '');
     }
 
     function postData() {
+        if (typeof (obj) !== "object" || Object.keys(obj).length == 0) {
+            return;
+        }
+        console.log("POST: ", obj);
         axios.post(url, obj)
             .then((result) => {
                 console.log("success", result);
