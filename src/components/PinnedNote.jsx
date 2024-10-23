@@ -11,8 +11,10 @@ function PinnedNote({ entry }) {
     const [angle, setAngle] = useState(0);
 
     useEffect(() => {
-        setColor(colors.at(Math.floor(Math.random() * colors.length)));
-        setAngle(Math.random() * maxAngle - maxAngle * 0.5);
+        const tmpColor = colors.at(Math.floor(Math.random() * colors.length));
+        const tmpAngle = Math.random() * maxAngle - maxAngle * 0.5;
+        setColor(tmpColor);
+        setAngle(tmpAngle);
     }, [])
 
     return (

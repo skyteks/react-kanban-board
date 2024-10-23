@@ -50,10 +50,6 @@ nav {
   padding: 5px 20px;
 }
 
-nav>a {
-  color: white;
-}
-
 .side-panel {
   width: 200px;
   height: inherit;
@@ -78,7 +74,8 @@ table {
   flex-basis: 100%;
 }
 
-th, td {
+th,
+td {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -107,4 +104,12 @@ label {
 
 ul {
   list-style-type: '- ';
+}
+
+.side-panel a {
+  color: white;
+}
+
+.side-panel a.active {
+  text-decoration: none;
 }
