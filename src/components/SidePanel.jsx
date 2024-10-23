@@ -5,8 +5,8 @@ function SidePanel({ doClick, display }) {
     const style = display ? null : { display: "none" };
     return (
         <div className="side-panel" style={style} >
-            <NavLink onClick={doClick} to={"/"} className="text-white">Board</NavLink>
-            <NavLink onClick={doClick} to={"/create"} className="text-white">Create New</NavLink>
+            <NavLink onClick={doClick} to={"/"}>Board</NavLink>
+            <NavLink onClick={doClick} to={"/create"}>Create New</NavLink>
         </div>
     );
 }

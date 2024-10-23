@@ -51,11 +51,11 @@ function Board() {
                 <table>
                     <tbody>
                         <tr>
-                            <th style={{ width: "20%" }}>Backlog</th>
-                            <th style={{ width: "20%" }}>To Do</th>
-                            <th style={{ width: "20%" }}>Doing</th>
-                            <th style={{ width: "20%" }}>Test</th>
-                            <th style={{ width: "20%" }}>Done</th>
+                            <th>Backlog</th>
+                            <th>To Do</th>
+                            <th>Doing</th>
+                            <th>Test</th>
+                            <th>Done</th>
                         </tr>
                         <tr>
                             <td>

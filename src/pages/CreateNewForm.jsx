@@ -41,7 +41,7 @@ function CreateNewForm() {
 
     return (
         <main >
-            <form onSubmit={handleSubmit} style={{ padding: "20px" }}>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" onChange={handleFormInput} />
                 <br />
