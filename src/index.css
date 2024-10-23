@@ -10,22 +10,27 @@
 
 html {
   font-size: 16px;
-  height: 100%;
+  height: 100vh;
 }
 
 body {
   font-family: 'Inter', sans-serif;
   margin: 0px;
-  height: 100%;
   background-color: #cfba81;
-}
-
-#root {
-  height: 100%;
   --nav-height: 10%;
   --nav-min-height: 30px;
   --nav-max-Height: 60px;
   --nav-size: max(min(var(--nav-height), var(--nav-max-Height)), var(--nav-min-height));
+  height: calc(100% - var(--nav-size));
+  top: 0px;
+}
+
+#root {
+  height: calc(100%);
+}
+
+.app {
+  height: calc(100%);
 }
 
 nav,
@@ -96,10 +101,6 @@ tr {
 h1 {
   font-size: 2rem;
   font-weight: 700;
-}
-
-label {
-  display: block;
 }
 
 ul {

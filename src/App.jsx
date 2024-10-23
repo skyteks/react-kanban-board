@@ -14,13 +14,13 @@ function App() {
     }
 
     return (
-        <div className="App" style={{height: "100%"}}>
+        <div className="app">
             <Navbar click1={toggleShowSide} />
-            <SidePanel doClick={toggleShowSide} display={showSide}/>
+            <SidePanel doClick={toggleShowSide} display={showSide} />
             <Routes>
                 <Route path="/" element={<Board />} />
                 <Route path="/create/" element={<CreateNewForm />} />
-                
+
                 <Route path="/error/:errorId" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error/404" />} />
             </Routes>

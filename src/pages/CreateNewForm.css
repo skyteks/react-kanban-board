@@ -1,0 +1,107 @@
+:has(>form) {
+    font-family: Arial, sans-serif;
+    background-color: darkgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Optional padding */
+    height: calc(100%);
+}
+
+form {
+    background-color: #fff;
+    /* White background for the form */
+    border-radius: 12px;
+    /* More rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    /* Deeper shadow for depth */
+    padding: 30px;
+    /* More padding inside the form */
+    width: 100%;
+    /* Take full width */
+    max-width: 900px;
+    /* Increased max width for more space */
+    display: flex;
+    /* Use flexbox for the overall form */
+    gap: 20px;
+    /* Space between blocks */
+}
+
+.form-block {
+    display: flex;
+    flex-direction: column;
+    /* Stack fields vertically within blocks */
+    gap: 15px;
+    /* Space between fields in a block */
+    flex: 1;
+    /* Allow blocks to grow equally */
+}
+
+.form-group {
+    display: flex;
+    /* Use flex for labels and inputs */
+    flex-direction: column;
+    /* Stack label and input vertically */
+}
+
+label {
+    font-weight: bold;
+    /* Bold text */
+    margin-bottom: 5px;
+    /* Space below label */
+}
+
+input[type="text"],
+select,
+textarea {
+    padding: 12px;
+    /* Padding inside the input/select/textarea */
+    border: 1px solid #ccc;
+    /* Light border */
+    border-radius: 6px;
+    /* Rounded corners */
+    transition: border-color 0.3s;
+    /* Transition for border color */
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff;
+    /* Change border color on focus */
+    outline: none;
+    /* Remove default outline */
+}
+
+textarea {
+    resize: vertical;
+    /* Allow vertical resizing only */
+    min-height: 60px;
+    /* Minimum height for textarea */
+}
+
+form button {
+    padding: 12px 20px;
+    /* Padding inside button */
+    border-radius: 6px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer on hover */
+    transition: background-color 0.3s, transform 0.2s;
+    /* Transition effects */
+    width: 100%;
+    /* Make buttons full width within their block */
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
+}
+
+form button:disabled {
+    background-color: #ccc;
+    /* Greyed out when disabled */
+    cursor: not-allowed;
+    /* Not-allowed cursor */
+}
