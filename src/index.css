@@ -81,14 +81,10 @@ table {
 
 th,
 td {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
   align-items: center;
-}
-
-td {
 }
 
 tr {
@@ -112,4 +108,9 @@ ul {
 
 .side-panel a.active {
   text-decoration: none;
+}
+
+tbody,
+tr {
+  border: 2px solid rgba(0, 0, 0, 0.5);
 }
