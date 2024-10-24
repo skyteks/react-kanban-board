@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
-function SidePanel({ doClick, display }) {
+function SidePanel({ doClick, visible }) {
 
-    const style = display ? null : { display: "none" };
+    const style = visible ? null : { display: "none" };
     return (
         <div className="side-panel" style={style} >
             <NavLink onClick={doClick} to={"/"}>Board</NavLink>

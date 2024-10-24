@@ -16,7 +16,7 @@ function App() {
     return (
         <div className="app">
             <Navbar click1={toggleShowSide} />
-            <SidePanel doClick={toggleShowSide} display={showSide} />
+            <SidePanel doClick={toggleShowSide} visible={showSide} />
             <Routes>
                 <Route path="/" element={<Board />} />
                 <Route path="/create/" element={<CreateNewForm />} />

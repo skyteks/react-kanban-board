@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PinnedNote from "../components/PinnedNote";
+import DropZone from "../components/DropZone";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
     const [productsData, setProductsData] = useState([]);
     const url = "https://kanban-board-rest-api.up.railway.app/posts";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
-
+    const [isDragging, setIsDragging] = useState(false);
+    const [draggedKey, setDraggedKey] = useState(null);
     useEffect(getData, []);
 
     function getData() {
@@ -37,7 +39,7 @@ function Board() {
                 })
                 .finally(() => {
                 });
-            
+
         }
     }
 
@@ -51,14 +53,25 @@ function Board() {
                 <table>
                     <tbody>
                         <tr>
-                            <th>Backlog</th>
-                            <th>To Do</th>
-                            <th>Doing</th>
-                            <th>Test</th>
-                            <th>Done</th>
+                            <th>
+                                <h3>Backlog</h3>
+                            </th>
+                            <th>
+                                <h3>To Do</h3>
+                            </th>
+                            <th>
+                                <h3>Doing</h3>
+                            </th>
+                            <th>
+                                <h3>Test</h3>
+                            </th>
+                            <th>
+                                <h3>Done</h3>
+                            </th>
                         </tr>
                         <tr>
                             <td>
+                                <DropZone visible={isDragging && draggedKey != "backlog"} />
                                 {productsData &&
                                     productsData
                                         .filter((entry) => entry.status === undefined || entry.status === "backlog")
@@ -70,6 +83,7 @@ function Board() {
                                 }
                             </td>
                             <td>
+                                <DropZone visible={isDragging && draggedKey != "todo"} />
                                 {
                                     productsData
                                         .filter((entry) => entry.status === "todo")
@@ -81,6 +95,7 @@ function Board() {
                                 }
                             </td>
                             <td>
+                                <DropZone visible={isDragging && draggedKey != "doing"} />
                                 {
                                     productsData
                                         .filter((entry) => entry.status === "doing")
@@ -92,6 +107,7 @@ function Board() {
                                 }
                             </td>
                             <td>
+                                <DropZone visible={isDragging && draggedKey != "test"} />
                                 {
                                     productsData
                                         .filter((entry) => entry.status === "test")
@@ -103,6 +119,7 @@ function Board() {
                                 }
                             </td>
                             <td>
+                                <DropZone visible={isDragging && draggedKey != "done"} />
                                 {
                                     productsData
                                         .filter((entry) => entry.status === "done")
