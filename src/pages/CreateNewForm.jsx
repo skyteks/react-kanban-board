@@ -6,18 +6,18 @@ import FormTextfields from "../components/FormTextfields";
 function CreateNewForm() {
     const [count, setCount] = useState(1);
     const maxCount = 4;
-    const [obj, setObj] = useState({});
+    const [entry, setEntry] = useState({});
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
 
     function handleFormInput(e) {
         if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
-            delete obj[e.target.name];
+            delete entry[e.target.name];
         }
         else {
-            obj[e.target.name] = e.target.value;
+            entry[e.target.name] = e.target.value;
         }
-        setObj(obj);
+        setEntry(entry);
         setFormChanged(true);
     }
 
@@ -27,19 +27,19 @@ function CreateNewForm() {
         setFormChanged(false);
     }
 
-    function clear() {
+    function handleClear(e) {
         setFormChanged(false);
-        setObj({});
+        setEntry({});
         setCount(1);
         document.querySelector('textarea[name="text1"]').setAttribute('style', '');
     }
 
     function postData() {
-        if (typeof (obj) !== "object" || Object.keys(obj).length == 0) {
+        if (typeof (entry) !== "object" || Object.keys(entry).length == 0) {
             return;
         }
-        console.log("POST: ", obj);
-        axios.post(url, obj)
+        console.log("POST: ", entry);
+        axios.post(url, entry)
             .then((result) => {
                 console.log("success", result);
             })
@@ -89,7 +89,7 @@ function CreateNewForm() {
                 {/* Block for Submit and Reset Buttons */}
                 <div className="form-block">
                     <div className="form-group">
-                        <button type="reset" onClick={clear}>Clear</button>
+                        <button type="reset" onClick={handleClear}>Clear</button>
                         <br />
                         <button type="submit" disabled={!formChanged}>Create</button>
                         <br />

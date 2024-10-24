@@ -7,10 +7,12 @@ function DropZone({ visible, keyName }) {
     const [{ canDrop, isOver }, dropRef] = useDrop(() => {
         return {
             accept: "NOTE",
-            dropRef: () => ({
-                name: `${keyName} DropZone`,
-                keyName,
-            }),
+            dropRef: () => {
+                return {
+                    name: `${keyName} DropZone`,
+                    keyName,
+                };
+            },
             collect: (monitor) => {
                 return {
                     isOver: monitor.isOver(),
@@ -18,7 +20,7 @@ function DropZone({ visible, keyName }) {
                 };
             },
         };
-    }, [keyName],)
+    }, [keyName])
     const isActive = canDrop && isOver
 
     return (

@@ -7,39 +7,36 @@ function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
     const [productsData, setProductsData] = useState([]);
     const url = "https://kanban-board-rest-api.up.railway.app/posts";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
-    const [isDragging, setIsDragging] = useState(true);
+    const [isDragging, setIsDragging] = useState(false);
     const [draggedKey, setDraggedKey] = useState(null);
     useEffect(getData, []);
 
     function getData() {
-        if (true) {
-            axios.get(url)
-                .then((result) => {
-                    setProductsData(result.data);
-                    setDataLoaded(true);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                });
-        }
-        else {
-            fetch(url)
-                .then((result) => {
-                    console.log(result);
-                    return result.json();
-                })
-                .then((result) => {
-                    setProductsData(result);
-                    setDataLoaded(true);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                });
+        axios.get(url)
+            .then((result) => {
+                setProductsData(result.data);
+                setDataLoaded(true);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+            });
+    }
 
+    function handleDrag(e, entry) {
+
+        const key = entry.status ? entry.status : "backlog";
+        setDraggedKey(key);
+        switch (e._reactName) {
+            case "onDragStart":
+                setIsDragging(true);
+                break;
+            case "onDragEnd":
+                setIsDragging(false);
+                break;
+            default:
+                return;
         }
     }
 
@@ -77,7 +74,7 @@ function Board() {
                                         .filter((entry) => entry.status === undefined || entry.status === "backlog")
                                         .map((entry) => {
                                             return (
-                                                <PinnedNote entry={entry} key={entry.id} isDragging={isDragging} setIsDragging={setIsDragging} />
+                                                <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
                                             )
                                         })
                                 }
@@ -89,7 +86,7 @@ function Board() {
                                         .filter((entry) => entry.status === "todo")
                                         .map((entry) => {
                                             return (
-                                                <PinnedNote entry={entry} key={entry.id} isDragging={isDragging} setIsDragging={setIsDragging} />
+                                                <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
                                             )
                                         })
                                 }
@@ -101,7 +98,7 @@ function Board() {
                                         .filter((entry) => entry.status === "doing")
                                         .map((entry) => {
                                             return (
-                                                <PinnedNote entry={entry} key={entry.id} isDragging={isDragging} setIsDragging={setIsDragging} />
+                                                <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
                                             )
                                         })
                                 }
@@ -113,7 +110,7 @@ function Board() {
                                         .filter((entry) => entry.status === "test")
                                         .map((entry) => {
                                             return (
-                                                <PinnedNote entry={entry} key={entry.id} isDragging={isDragging} setIsDragging={setIsDragging} />
+                                                <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
                                             )
                                         })
                                 }
@@ -125,7 +122,7 @@ function Board() {
                                         .filter((entry) => entry.status === "done")
                                         .map((entry) => {
                                             return (
-                                                <PinnedNote entry={entry} key={entry.id} isDragging={isDragging} setIsDragging={setIsDragging} />
+                                                <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
                                             )
                                         })
                                 }
