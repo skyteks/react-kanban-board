@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd";
 import pin from "../assets/pin.png"
 import NoteText from "./NoteText";
 
-function PinnedNote({ entry, handleDrag }) {
+function PinnedNote({ entry, handleDrag, patchData }) {
     const colors = ["rgb(255, 255, 113)", "rgb(204, 251, 135)", "rgb(168, 233, 251)", "rgb(255, 191, 252)"];
     const [color, setColor] = useState("white");
 
@@ -20,12 +20,11 @@ function PinnedNote({ entry, handleDrag }) {
     const [{ dragging }, dragRef] = useDrag(() => {
         return {
             type: "NOTE",
-            item: { entry },
+            item: entry ,
             end(item, monitor) {
                 const dropResult = monitor.getDropResult()
-                const isDropAllowed = item && dropResult ? true : false;
+                const isDropAllowed = (item && dropResult) ? true : false;
                 //&& (dropResult.allowedDropEffect === 'any' || dropResult.allowedDropEffect === dropResult.dropEffect);
-                console.log(item, isDropAllowed, dropResult)
             },
             collect: (monitor) => {
                 const drag = monitor.isDragging();
@@ -38,7 +37,8 @@ function PinnedNote({ entry, handleDrag }) {
     }, [entry]);
 
     function handleDragLocal(e) {
-        handleDrag(e, entry);
+        console.log(e._reactName, e);
+        handleDrag(e._reactName, entry);
     }
 
     return (
