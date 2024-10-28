@@ -5,6 +5,7 @@ import SidePanel from "./components/SidePanel";
 import Board from "./pages/Board";
 import CreateNewForm from "./pages/CreateNewForm";
 import ErrorPage from "./pages/ErrorPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
     const [showSide, setShowSide] = useState(false);
@@ -20,6 +21,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Board />} />
                 <Route path="/create/" element={<CreateNewForm />} />
+                <Route path="/about/" element={<AboutPage />} />
 
                 <Route path="/error/:errorId" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error/404" />} />
