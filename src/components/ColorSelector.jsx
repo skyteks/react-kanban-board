@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import "../pages/CreateNewForm.css";
 import colorsData from "../data/colors.json";
 
-function ColorSelector({doChange}) {
+function ColorSelector({ doChange }) {
     const colors = colorsData.colors;
     const [selectedColor, setSelectedColor] = useState(colors[0]);
 
-    function handleColorSelect(e){
+    function handleColorSelect(e) {
         setSelectedColor(e.target.value);
         doChange(e);
     };

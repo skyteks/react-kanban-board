@@ -3,7 +3,7 @@ import axios from "axios";
 import "./CreateNewForm.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector.jsx";
-import colorsData from "../data/colors.json";
+import { useNavigate } from "react-router-dom";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -11,7 +11,7 @@ function CreateNewForm() {
     const [entry, setEntry] = useState({});
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
-    const colors = colorsData.colors;
+    const navigate = useNavigate();
 
     function handleFormInput(e) {
         if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
@@ -47,13 +47,12 @@ function CreateNewForm() {
         console.log("POST: ", entry);
         axios.post(url, entry)
             .then((result) => {
-                console.log("success", result);
+                console.log("POST", getStatusMeaning(result.status));
             })
             .catch((error) => {
-                console.error(error);
+                console.log("POST", getStatusMeaning(error.status));
+                navigate(("/error/" + error.status), error.status);
             })
-            .finally(() => {
-            });
     }
 
     return (
@@ -75,7 +74,7 @@ function CreateNewForm() {
                             <option value="done">Done</option>
                         </select>
                     </div>
-                        <ColorSelector doChange={handleFormInput} />
+                    <ColorSelector doChange={handleFormInput} />
                 </div>
 
                 {/* Block for FormTextfields */}

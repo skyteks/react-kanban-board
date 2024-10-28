@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import pin from "../assets/pin.png"
 import NoteText from "./NoteText";
-import colorsData from "../data/colors.json";
 
 function PinnedNote({ entry, handleDrag }) {
-    const colors = colorsData.colors;
-    const color = entry.color;//[color, setColor] = useState("white");
+    const color = entry.color;
 
     const maxAngle = 10;
     const [angle, setAngle] = useState(0);
 
     useEffect(() => {
-        //const tmpColor = colors.at(Math.floor(Math.random() * colors.length));
-        //setColor(tmpColor);
         const tmpAngle = Math.random() * maxAngle - maxAngle * 0.5;
         setAngle(tmpAngle);
     }, [])
