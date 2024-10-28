@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./CreateNewForm.css"
 import FormTextfields from "../components/FormTextfields";
+import ColorSelector from "../components/ColorSelector.jsx";
+import colorsData from "../data/colors.json";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -9,6 +11,7 @@ function CreateNewForm() {
     const [entry, setEntry] = useState({});
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
+    const colors = colorsData.colors;
 
     function handleFormInput(e) {
         if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
@@ -26,7 +29,8 @@ function CreateNewForm() {
         if (entry.status === undefined) {
             entry.status = "backlog";
         }
-        postData();
+        console.log("POST: ", entry);
+        //postData();
         setFormChanged(false);
     }
 
@@ -61,7 +65,6 @@ function CreateNewForm() {
                     <div className="form-group">
                         <label htmlFor="title">Title:</label>
                         <input type="text" name="title" onChange={handleFormInput} />
-                        <br />
                     </div>
                     <div className="form-group">
                         <label htmlFor="status">Status:</label>
@@ -72,8 +75,8 @@ function CreateNewForm() {
                             <option value="test">Test</option>
                             <option value="done">Done</option>
                         </select>
-                        <br />
                     </div>
+                        <ColorSelector doChange={handleFormInput} />
                 </div>
 
                 {/* Block for FormTextfields */}
@@ -84,7 +87,6 @@ function CreateNewForm() {
                             <button type="button" onClick={() => setCount(count + 1)}>
                                 Add another text-field
                             </button>
-                            <br />
                         </div>
                     )}
                 </div>
@@ -93,9 +95,7 @@ function CreateNewForm() {
                 <div className="form-block">
                     <div className="form-group">
                         <button type="reset" onClick={handleClear}>Clear</button>
-                        <br />
                         <button type="submit" disabled={!formChanged}>Create</button>
-                        <br />
                     </div>
                 </div>
             </form>

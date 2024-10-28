@@ -11,7 +11,6 @@ function FormTextfields({ count, doChange }) {
             <div className="form-group" key={index} >
                 <label htmlFor={name}>Text {index + 1}: </label>
                 <textarea type="text" name={name} onChange={doChange} rows="2" cols="40" />
-                <br />
             </div>
         );
     });

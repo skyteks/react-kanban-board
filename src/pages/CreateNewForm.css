@@ -10,7 +10,7 @@
 }
 
 form {
-    background-color: #fff;
+    background-color: #ccc;
     /* White background for the form */
     border-radius: 12px;
     /* More rounded corners */
@@ -32,7 +32,7 @@ form {
     display: flex;
     flex-direction: column;
     /* Stack fields vertically within blocks */
-    gap: 15px;
+    gap: 5px;
     /* Space between fields in a block */
     flex: 1;
     /* Allow blocks to grow equally */
@@ -43,6 +43,7 @@ form {
     /* Use flex for labels and inputs */
     flex-direction: column;
     /* Stack label and input vertically */
+    gap: 5px;
 }
 
 label {
@@ -52,33 +53,56 @@ label {
     /* Space below label */
 }
 
+.color-selection {
+    background-color: white;
+    transition: border-color 0.3s;
+}
+
 input[type="text"],
 select,
-textarea {
-    padding: 12px;
+textarea,
+.color-option,
+.color-selection {
+    padding: 5px;
     /* Padding inside the input/select/textarea */
-    border: 1px solid #ccc;
-    /* Light border */
     border-radius: 6px;
     /* Rounded corners */
-    transition: border-color 0.3s;
-    /* Transition for border color */
+    border-radius: 4px;
+    border: 1px solid transparent;
+    /* Default border */
+    cursor: pointer;
+}
+
+input[type="text"],
+select,
+textarea,
+.color-option {
+    display: flex;
+    align-items: center;
+}
+
+.color-option {
+    transition: none;
 }
 
 input[type="text"]:focus,
 select:focus,
-textarea:focus {
+textarea:focus,
+.color-selection:focus-within {
     border-color: #007bff;
-    /* Change border color on focus */
     outline: none;
-    /* Remove default outline */
+}
+
+.color-option.highlight {
+    border: 1px solid darkgray;
+    /* Highlight selected color */
+    background-color: white;
 }
 
 textarea {
     resize: vertical;
     /* Allow vertical resizing only */
-    min-height: 60px;
-    /* Minimum height for textarea */
+    min-height: 40px;
 }
 
 form button {
@@ -94,14 +118,20 @@ form button {
     /* Make buttons full width within their block */
 }
 
-form button:hover {
-    transform: translateY(-2px);
+form button:hover:not(:disabled)  {
+    transform: translateY(-2px) translateX(2px);
     /* Slight lift effect on hover */
 }
 
-form button:disabled {
-    background-color: #ccc;
-    /* Greyed out when disabled */
+form button:disabled{
     cursor: not-allowed;
     /* Not-allowed cursor */
+}
+
+.color-preview {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
 }
