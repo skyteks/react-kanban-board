@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
     const [productsData, setProductsData] = useState([]);
-    const url = "https://kanban-board-rest-api.up.railway.app/postsh";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
+    const url = "https://kanban-board-rest-api.up.railway.app/posts";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
     const [isDragging, setIsDragging] = useState(false);
     const [draggedKey, setDraggedKey] = useState(null);
     const [dropzoneKey, setDropzoneKey] = useState(null);
