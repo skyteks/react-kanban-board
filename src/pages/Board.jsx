@@ -92,7 +92,7 @@ function Board() {
                                 <DropZone visible={isDragging && draggedKey != "backlog"} keyName="backlog" setDropzoneKey={setDropzoneKey} />
                                 {productsData &&
                                     productsData
-                                        .filter((entry) => entry.status === undefined || entry.status === null || entry.status === "backlog")
+                                        .filter((entry) => entry.status === "backlog")
                                         .map((entry) => {
                                             return (
                                                 <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />

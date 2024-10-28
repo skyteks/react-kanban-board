@@ -23,6 +23,9 @@ function CreateNewForm() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (entry.status === undefined) {
+            entry.status = "backlog";
+        }
         postData();
         setFormChanged(false);
     }
