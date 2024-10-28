@@ -49,12 +49,12 @@ function Board() {
                 setDraggedKey(entry.status);
                 break;
             case "onDragEnd":
-                patchData(entry);
-                //setTimeout(() => {
+                if (dropzoneKey) {
+                    patchData(entry);
+                }
                 setIsDragging(false);
                 setDropzoneKey(null);
                 setDraggedKey(null);
-                //}, 10);
                 break;
             default:
                 return;
@@ -92,7 +92,7 @@ function Board() {
                                 <DropZone visible={isDragging && draggedKey != "backlog"} keyName="backlog" setDropzoneKey={setDropzoneKey} />
                                 {productsData &&
                                     productsData
-                                        .filter((entry) => entry.status === undefined || entry.status === "backlog")
+                                        .filter((entry) => entry.status === undefined || entry.status === null || entry.status === "backlog")
                                         .map((entry) => {
                                             return (
                                                 <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
