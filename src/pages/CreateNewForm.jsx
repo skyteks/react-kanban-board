@@ -29,8 +29,7 @@ function CreateNewForm() {
         if (entry.status === undefined) {
             entry.status = "backlog";
         }
-        console.log("POST: ", entry);
-        //postData();
+        postData();
         setFormChanged(false);
     }
 
