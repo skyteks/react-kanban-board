@@ -16,7 +16,8 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   margin: 0px;
-  background-color: #cfba81;
+  --board-color: #cfba81;
+  background-color: var(--board-color);
   --nav-height: 10%;
   --nav-min-height: 30px;
   --nav-max-Height: 60px;

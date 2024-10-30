@@ -10,7 +10,7 @@ function FormTextfields({ count, doChange }) {
         return (
             <div className="form-group" key={index} >
                 <label htmlFor={name}>Text {index + 1}: </label>
-                <textarea type="text" name={name} onChange={doChange} rows="2" cols="40" />
+                <textarea type="text" name={name} onChange={doChange} rows="2" cols="40" spellCheck="true" required={index == 0} />
             </div>
         );
     });

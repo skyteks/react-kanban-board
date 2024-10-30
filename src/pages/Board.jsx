@@ -30,7 +30,7 @@ function Board() {
 
     function patchData(entry) {
         const changes = { status: dropzoneKey };
-        console.log(entry.status, " --> ", changes.status);
+        console.log("status: ", entry.status, " --> ", changes.status);
         axios.patch(url + "/" + entry.id, changes)
             .then((result) => {
                 console.log("PATCH", getStatusMeaning(result.status));

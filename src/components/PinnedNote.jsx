@@ -5,16 +5,15 @@ import NoteText from "./NoteText";
 
 function PinnedNote({ entry, handleDrag }) {
     const color = entry.color;
-
     const maxAngle = 10;
     const [angle, setAngle] = useState(0);
 
     useEffect(() => {
         const tmpAngle = Math.random() * maxAngle - maxAngle * 0.5;
         setAngle(tmpAngle);
-    }, [])
+    }, [entry])
 
-    const [{ dragging }, dragRef] = useDrag(() => {
+    const [{ dragging }, dragRef] = !handleDrag ? [{ dragging: false }, () => { }] : useDrag(() => {
         return {
             type: "NOTE",
             item: entry,
@@ -34,6 +33,9 @@ function PinnedNote({ entry, handleDrag }) {
     }, [entry]);
 
     function handleDragLocal(e) {
+        if (!handleDrag) {
+            return;
+        }
         console.log(e._reactName, e);
         handleDrag(e._reactName, entry);
     }

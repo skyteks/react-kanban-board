@@ -1,9 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CreateNewForm.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector.jsx";
-import { useNavigate } from "react-router-dom";
+import PinnedNote from "../components/PinnedNote";
+import getStatusMeaning from "../HelperFunctions"
+import colorsData from "../data/colors.json";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -12,15 +15,21 @@ function CreateNewForm() {
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
+    const colors = colorsData.colors;
 
     function handleFormInput(e) {
+        if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
+            return;
+        }
+        const newEntry = { ...entry };
         if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
-            delete entry[e.target.name];
+            delete newEntry[e.target.name];
         }
         else {
-            entry[e.target.name] = e.target.value;
+            newEntry[e.target.name] = e.target.value;
         }
-        setEntry(entry);
+        console.log(e.target.name + ": ", entry[e.target.name], " --> ", e.target.value);
+        setEntry(newEntry);
         setFormChanged(true);
     }
 
@@ -41,10 +50,10 @@ function CreateNewForm() {
     }
 
     function postData() {
-        if (typeof (entry) !== "object" || Object.keys(entry).length == 0) {
+        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.entries(entry).some(([key, value]) => !value)) {
             return;
         }
-        console.log("POST: ", entry);
+        console.log("POST", entry);
         axios.post(url, entry)
             .then((result) => {
                 console.log("POST", getStatusMeaning(result.status));
@@ -57,17 +66,16 @@ function CreateNewForm() {
 
     return (
         <main>
-            <form onSubmit={handleSubmit}>
-                {/* Block for Title and Status */}
+            <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">
                         <label htmlFor="title">Title:</label>
-                        <input type="text" name="title" onChange={handleFormInput} />
+                        <input type="text" name="title" onChange={handleFormInput} required={true} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="status">Status:</label>
-                        <select name="status" id="status" onChange={handleFormInput}>
-                            <option value="backlog">Backlog</option>
+                        <select name="status" id="status" onChange={handleFormInput} required={true}>
+                            <option value="backlog" defaultChecked={true}>Backlog</option>
                             <option value="todo">To Do</option>
                             <option value="doing">Doing</option>
                             <option value="test">Test</option>
@@ -76,10 +84,8 @@ function CreateNewForm() {
                     </div>
                     <ColorSelector doChange={handleFormInput} />
                 </div>
-
-                {/* Block for FormTextfields */}
                 <div className="form-block">
-                    <FormTextfields count={count} doChange={handleFormInput} />
+                    <FormTextfields count={count} onChange={handleFormInput} />
                     {count <= maxCount && (
                         <div className="form-group">
                             <button type="button" onClick={() => setCount(count + 1)}>
@@ -88,10 +94,19 @@ function CreateNewForm() {
                         </div>
                     )}
                 </div>
-
-                {/* Block for Submit and Reset Buttons */}
                 <div className="form-block">
                     <div className="form-group">
+                        <label>Preview:</label>
+                        <div className="form-preview">
+                            {
+                                //<div style={{ display: entry.color ? "block" : "none" }}>
+                                <PinnedNote entry={{ ...entry, color: entry.color ? entry.color : colors[0] }} handleDrag={null} />
+                                //</div>
+                            }
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={!formChanged}>Create</button>
                     </div>

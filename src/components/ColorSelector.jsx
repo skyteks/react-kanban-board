@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../pages/CreateNewForm.css";
 import colorsData from "../data/colors.json";
 
@@ -12,12 +12,12 @@ function ColorSelector({ doChange }) {
     };
 
     return (
-        <div className='form-group'>
+        <div className="form-group">
             <label>Note Color:</label>
-            <div className={`color-selection`} >
+            <div className={"color-selection"} >
                 {colors.map((color, index) => (
-                    <label key={index} className={`color-option ${selectedColor === color ? 'highlight' : ''}`}>
-                        <input type="radio" name="color" value={color} onChange={handleColorSelect} checked={selectedColor === color} />
+                    <label key={index} className={`color-option ${selectedColor === color ? "highlight" : ""}`}>
+                        <input type="radio" name="color" value={color} onChange={handleColorSelect} required />
                         <div className="color-preview" style={{ backgroundColor: color }} />
                         <span>{color}</span>
                     </label>
