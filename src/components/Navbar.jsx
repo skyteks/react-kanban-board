@@ -8,7 +8,11 @@ function Navbar({ click1 }) {
                 <img src={logo} alt="Logo" style={{ height: "100%" }} />
             </Link>
 
-            <h1>React Kanban-Board</h1>
+            <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+                <h1>React Kanban-Board</h1>
+                <p style={{ fontSize: "11px" }}>(uses Drag & Drop)</p>
+            </div>
+
 
             <button onClick={click1} style={{ height: "100%", display: "flex", backgroundColor: "transparent", border: "none" }}>
                 <img
