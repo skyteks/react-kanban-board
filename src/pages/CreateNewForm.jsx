@@ -23,15 +23,15 @@ function CreateNewForm() {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
             return;
         }
-        const newEntry = { ...entry };
+        const entryChanged = { ...entry };
         if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
-            delete newEntry[e.target.name];
+            delete entryChanged[e.target.name];
         }
         else {
-            newEntry[e.target.name] = e.target.value;
+            entryChanged[e.target.name] = e.target.value;
         }
         console.log(e.target.name + ": ", entry[e.target.name], " --> ", e.target.value);
-        setEntry(newEntry);
+        setEntry(entryChanged);
         setFormChanged(true);
     }
 
@@ -48,11 +48,11 @@ function CreateNewForm() {
         setFormChanged(false);
         setEntry({});
         setCount(1);
-        document.querySelector('textarea[name="text1"]').setAttribute('style', '');
+        document.querySelector('textarea[name="text1"]').setAttribute("style", "");
     }
 
     function postData() {
-        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.entries(entry).some(([key, value]) => !value)) {
+        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.values(entry).some((value) => !value)) {
             return;
         }
         console.log("POST", entry);

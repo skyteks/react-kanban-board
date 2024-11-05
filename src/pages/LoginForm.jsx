@@ -1,52 +1,65 @@
 import { useState } from "react";
 import "../Form.css"
-import FormTextfields from "../components/FormTextfields";
-import ColorSelector from "../components/ColorSelector.jsx";
-import PinnedNote from "../components/PinnedNote";
-import colorsData from "../data/colors.json";
 import { useThemeContext } from "../context/ThemeProvider.jsx";
 
-function CreateNewForm() {
-    const [count, setCount] = useState(1);
-    const maxCount = 4;
-    const [entry, setEntry] = useState({});
+function LoginForm() {
+    const empty = { username: "", email: "", password: "" }
+    const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
     const { theme } = useThemeContext();
-    const colors = colorsData.colors;
+    const [samePassword, setSamePassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     function handleFormInput(e) {
-        if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
+        if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
             return;
         }
-        const newEntry = { ...entry };
-        if (typeof (e.target.value) === "string" && e.target.value.length == 0) {
-            delete newEntry[e.target.name];
+        if (e.target.name !== "password2" && e.target.name !== "show") {
+            console.log(e.target.name + ": ", account[e.target.name], " --> ", e.target.value);
+            const accountChanged = { ...account };
+            accountChanged[e.target.name] = e.target.value;
+            setAccount(accountChanged);
         }
-        else {
-            newEntry[e.target.name] = e.target.value;
-        }
-        console.log(e.target.name + ": ", entry[e.target.name], " --> ", e.target.value);
-        setEntry(newEntry);
         setFormChanged(true);
+        setSamePassword(checkPassword());
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (entry.status === undefined) {
-            entry.status = "backlog";
-        }
+        clearPassword();
         postData();
-        setFormChanged(false);
+        //handleClear(e);
     }
 
     function handleClear(e) {
         setFormChanged(false);
-        setEntry({});
-        setCount(1);
-        document.querySelector('textarea[name="text1"]').setAttribute('style', '');
+        setAccount({ ...empty });
+        setSamePassword(false);
+        setShowPassword(false);
+    }
+
+    function clearPassword() {
+        const pwInput1 = document.querySelector('input[name="password"]');
+        const pwInput2 = document.querySelector('input[name="password2"]');
+        pwInput1.value = "";
+        pwInput2.value = "";
+    }
+
+    function checkPassword() {
+        const pwInput1 = document.querySelector('input[name="password"]');
+        const pwInput2 = document.querySelector('input[name="password2"]');
+        return pwInput1.value === pwInput2.value && pwInput1.value !== "";
+    }
+
+    function toggleShowPassword(e) {
+        setShowPassword(e.target.checked);
     }
 
     function postData() {
+        if (typeof (account) !== "object" || Object.values(account).some((value) => !value)) {
+            return;
+        }
+        console.log("POST", account);
     }
 
     return (
@@ -54,46 +67,28 @@ function CreateNewForm() {
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">
-                        <label htmlFor="title">Title:</label>
-                        <input type="text" name="title" onChange={handleFormInput} required={true} />
+                        <label htmlFor="username">Username:</label>
+                        <input type="text" name="username" onChange={handleFormInput} required={true} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="status">Status:</label>
-                        <select name="status" id="status" onChange={handleFormInput} required={true}>
-                            <option value="backlog" defaultChecked={true}>Backlog</option>
-                            <option value="todo">To Do</option>
-                            <option value="doing">Doing</option>
-                            <option value="test">Test</option>
-                            <option value="done">Done</option>
-                        </select>
+                        <label htmlFor="email">E-Mail:</label>
+                        <input type="email" name="email" onChange={handleFormInput} required={true} />
                     </div>
-                    <ColorSelector doChange={handleFormInput} />
-                </div>
-                <div className="form-block">
-                    <FormTextfields count={count} onChange={handleFormInput} />
-                    {count <= maxCount && (
-                        <div className="form-group">
-                            <button type="button" onClick={() => setCount(count + 1)}>
-                                Add another text-field
-                            </button>
-                        </div>
-                    )}
-                </div>
-                <div className="form-block">
                     <div className="form-group">
-                        <label>Preview:</label>
-                        <div className="form-preview">
-                            {
-                                //<div style={{ display: entry.color ? "block" : "none" }}>
-                                <PinnedNote entry={{ ...entry, color: entry.color ? entry.color : colors[0] }} handleDrag={null} />
-                                //</div>
-                            }
+                        <label htmlFor="password">Password:</label>
+                        <input type={showPassword ? "text" : "password"} name="password" onChange={handleFormInput} required={true} />
+                        <input type={showPassword ? "text" : "password"} name="password2" onChange={handleFormInput} required={true} placeholder="confirm password" />
+                        <div>
+                            <input type="checkbox" onChange={toggleShowPassword} checked={showPassword} required={!samePassword} />
+                            <span>{showPassword ? "Hide" : "Show"}</span>
                         </div>
                     </div>
+                </div>
+                <div className="form-block">
                     <div className="form-group">
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
-                        <button type="submit" disabled={!formChanged}>Create</button>
+                        <button type="submit" disabled={(!formChanged)}>Register</button>
                     </div>
                 </div>
             </form>
@@ -101,4 +96,4 @@ function CreateNewForm() {
     );
 }
 
-export default CreateNewForm;
+export default LoginForm;
