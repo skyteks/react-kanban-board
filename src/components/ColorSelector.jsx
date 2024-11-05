@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../pages/CreateNewForm.css";
 import colorsData from "../data/colors.json";
 
 function ColorSelector({ doChange }) {

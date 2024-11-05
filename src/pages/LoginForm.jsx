@@ -1,11 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../Form.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector.jsx";
 import PinnedNote from "../components/PinnedNote";
-import getStatusMeaning from "../HelperFunctions"
 import colorsData from "../data/colors.json";
 import { useThemeContext } from "../context/ThemeProvider.jsx";
 
@@ -13,9 +10,7 @@ function CreateNewForm() {
     const [count, setCount] = useState(1);
     const maxCount = 4;
     const [entry, setEntry] = useState({});
-    const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
-    const navigate = useNavigate();
     const { theme } = useThemeContext();
     const colors = colorsData.colors;
 
@@ -52,18 +47,6 @@ function CreateNewForm() {
     }
 
     function postData() {
-        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.entries(entry).some(([key, value]) => !value)) {
-            return;
-        }
-        console.log("POST", entry);
-        axios.post(url, entry)
-            .then((result) => {
-                console.log("POST", getStatusMeaning(result.status));
-            })
-            .catch((error) => {
-                console.log("POST", getStatusMeaning(error.status));
-                navigate(("/error/" + error.status), error.status);
-            })
     }
 
     return (

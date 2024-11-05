@@ -1,5 +1,3 @@
-import "../pages/CreateNewForm.css"
-
 function FormTextfields({ count, doChange }) {
     let temp = [];
     for (let i = 1; i < (count + 1); i++) {
