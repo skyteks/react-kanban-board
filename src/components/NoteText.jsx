@@ -10,7 +10,7 @@ function NoteText({ entry }) {
     }
 
     return (
-        <div >
+        <div className="note-text">
             <ul >
                 {temp.map((text) => {
                     return (

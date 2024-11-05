@@ -7,6 +7,7 @@ import ColorSelector from "../components/ColorSelector.jsx";
 import PinnedNote from "../components/PinnedNote";
 import getStatusMeaning from "../HelperFunctions"
 import colorsData from "../data/colors.json";
+import { useThemeContext } from "../context/ThemeProvider.jsx";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -15,6 +16,7 @@ function CreateNewForm() {
     const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
+    const { theme } = useThemeContext();
     const colors = colorsData.colors;
 
     function handleFormInput(e) {
@@ -65,7 +67,7 @@ function CreateNewForm() {
     }
 
     return (
-        <main>
+        <main className={theme ? "dark" : "light"}>
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

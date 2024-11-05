@@ -1,6 +1,4 @@
 :has(>form) {
-    font-family: Arial, sans-serif;
-    background-color: darkgray;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,8 +7,6 @@
 }
 
 form {
-    background-color: #ccc;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 100%;
     max-width: 1000px;
@@ -18,7 +14,6 @@ form {
     gap: 20px;
     border: 2px;
     border-radius: 12px;
-    border-color: black;
     border-style: outset;
 }
 
@@ -68,6 +63,11 @@ textarea,
     transition: none;
 }
 
+.color-option span {
+    font-style: initial;
+    font-size: 14px;
+}
+
 input[type="text"]:focus,
 select:focus,
 textarea:focus,
@@ -100,6 +100,8 @@ form button:hover:not(:disabled) {
 
 form button:disabled {
     cursor: not-allowed;
+    color: inherit;
+    opacity: 50%;
 }
 
 .color-preview {
@@ -116,4 +118,41 @@ form button:disabled {
     border-color: black;
     border-style: inset;
     border-radius: 6px;
+    color: black;
+}
+
+main.light {
+    transition-duration: var(--theme-transition-duration);
+    background-color: darkgray;
+}
+
+main.dark {
+    transition-duration: var(--theme-transition-duration);
+    background-color: black;
+}
+
+.light form {
+    transition-duration: var(--theme-transition-duration);
+    background-color: #ccc;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-color: black;
+    color: black
+}
+
+.dark form {
+    transition-duration: var(--theme-transition-duration);
+    background-color: #222;
+    box-shadow: 0 8px 30px rgba(1, 1, 1, 0.1);
+    border-color: #ccc;
+    color: white;
+}
+
+.dark input[type="text"],
+.dark select,
+.dark .color-selection,
+.dark .color-option,
+.dark textarea,
+.dark button {
+    background-color: #444;
+    color: white;
 }
