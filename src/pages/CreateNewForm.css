@@ -78,7 +78,6 @@ textarea:focus,
 
 .color-option.highlight {
     border: 1px solid darkgray;
-    background-color: white;
 }
 
 textarea {
@@ -90,7 +89,7 @@ form button {
     padding: 12px 20px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: transform 0.2s;
     width: 100%;
 }
 
@@ -121,18 +120,25 @@ form button:disabled {
     color: black;
 }
 
+.light,
+.light * {
+    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
+}
+
+.dark,
+.dark * {
+    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
+}
+
 main.light {
-    transition-duration: var(--theme-transition-duration);
     background-color: darkgray;
 }
 
 main.dark {
-    transition-duration: var(--theme-transition-duration);
     background-color: black;
 }
 
 .light form {
-    transition-duration: var(--theme-transition-duration);
     background-color: #ccc;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     border-color: black;
@@ -140,7 +146,6 @@ main.dark {
 }
 
 .dark form {
-    transition-duration: var(--theme-transition-duration);
     background-color: #222;
     box-shadow: 0 8px 30px rgba(1, 1, 1, 0.1);
     border-color: #ccc;
@@ -150,7 +155,6 @@ main.dark {
 .dark input[type="text"],
 .dark select,
 .dark .color-selection,
-.dark .color-option,
 .dark textarea,
 .dark button {
     background-color: #444;
