@@ -7,6 +7,7 @@ import CreateNewForm from "./pages/CreateNewForm";
 import ErrorPage from "./pages/ErrorPage";
 import AboutPage from "./pages/AboutPage";
 import RegistrationForm from "./pages/RegistrationForm";
+import LoginForm from "./pages/LoginForm";
 
 function App() {
     const [showSide, setShowSide] = useState(false);
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/create/" element={<CreateNewForm />} />
                 <Route path="/about/" element={<AboutPage />} />
                 <Route path="/register/" element={<RegistrationForm />} />
+                <Route path="/login/" element={<LoginForm />} />
 
                 <Route path="/error/:errorId" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error/404" />} />

@@ -8,7 +8,8 @@ function SidePanel({ doClick, visible }) {
             <NavLink onClick={doClick} to={"/"}>Board</NavLink>
             <NavLink onClick={doClick} to={"/create"}>Create New</NavLink>
             <NavLink onClick={doClick} to={"/about"}>About Page</NavLink>
-            <NavLink onClick={doClick} to={"/login"}>Login / Register</NavLink>
+            <NavLink onClick={doClick} to={"/register"}>Register</NavLink>
+            <NavLink onClick={doClick} to={"/login"}>Login</NavLink>
         </div>
     );
 }
