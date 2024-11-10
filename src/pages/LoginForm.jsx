@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../Form.css"
-import { useThemeContext } from "../context/ThemeProvider.jsx";
+import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 
 function LoginForm() {
     const empty = { username: "", email: "", password: "" }

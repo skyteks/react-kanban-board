@@ -7,7 +7,7 @@ import ColorSelector from "../components/ColorSelector.jsx";
 import PinnedNote from "../components/PinnedNote";
 import getStatusMeaning from "../HelperFunctions"
 import colorsData from "../data/colors.json";
-import { useThemeContext } from "../context/ThemeProvider.jsx";
+import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);

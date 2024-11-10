@@ -1,4 +1,4 @@
-import { useThemeContext } from "../context/ThemeProvider";
+import { useThemeContext } from "../context/ThemeContextProvider";
 import logo from "./../assets/logo-ironhack-blue.png";
 import { Link } from "react-router-dom";
 
