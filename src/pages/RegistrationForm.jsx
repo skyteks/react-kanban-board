@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../Form.css"
 import { useThemeContext } from "../context/ThemeProvider.jsx";
 
-function LoginForm() {
+function RegistrationForm() {
     const empty = { username: "", email: "", password: "" }
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
@@ -96,4 +96,4 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+export default RegistrationForm;
