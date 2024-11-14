@@ -26,4 +26,5 @@ function getStatusMeaning(statusCode) {
             return ["Unknown Status Code", "The status code is not recognized."];
     }
 }
+
 export default getStatusMeaning;

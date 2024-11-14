@@ -38,7 +38,7 @@ function LoginForm() {
     }
 
     function postData() {
-        if (typeof (account) !== "object" || Object.values(account).some((value) => !value)) {
+        if (typeof (account) !== "object" || Object.values(account).some((value) => !value || value == "")) {
             return;
         }
         console.log("POST", account);
@@ -65,7 +65,7 @@ function LoginForm() {
                     <div className="form-group">
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
-                        <button type="submit" disabled={(!formChanged)}>Register</button>
+                        <button type="submit" disabled={(!formChanged)}>Login</button>
                     </div>
                 </div>
             </form>

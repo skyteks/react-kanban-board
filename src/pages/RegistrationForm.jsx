@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "../Form.css"
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosAPI from "../axiosAPI.js"
+
 
 function RegistrationForm() {
     const empty = { username: "", email: "", password: "" }
@@ -9,6 +12,8 @@ function RegistrationForm() {
     const { theme } = useThemeContext();
     const [samePassword, setSamePassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    const { postData } = useAxiosAPI();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -24,10 +29,14 @@ function RegistrationForm() {
         setSamePassword(checkPassword());
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         clearPassword();
-        postData();
+        const success = await postData("/register", account);
+        if (success) {
+            navigate("/login");
+            return;
+        }
         //handleClear(e);
     }
 
@@ -53,13 +62,6 @@ function RegistrationForm() {
 
     function toggleShowPassword(e) {
         setShowPassword(e.target.checked);
-    }
-
-    function postData() {
-        if (typeof (account) !== "object" || Object.values(account).some((value) => !value)) {
-            return;
-        }
-        console.log("POST", account);
     }
 
     return (
