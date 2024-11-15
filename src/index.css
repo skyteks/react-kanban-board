@@ -104,8 +104,16 @@ ul {
     list-style-type: '- ';
 }
 
-.side-panel a {
+.side-panel a,
+.side-panel button {
     color: white;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-size: inherit;
+    text-align: left;
+    padding: 0%;
+    cursor: pointer;
 }
 
 .side-panel a.active {

@@ -1,47 +1,59 @@
 import { useState } from "react";
-import "../Form.css"
+import "../Form.css";
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
+import useAxiosAPI from "../axiosAPI.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContextProvider";
 
 function LoginForm() {
-    const empty = { username: "", email: "", password: "" }
+    const empty = { email: "", password: "" }
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
     const { theme } = useThemeContext();
     const [showPassword, setShowPassword] = useState(false);
+    const { postData } = useAxiosAPI();
+    const [resonseMessage, setResponseMessage] = useState(undefined);
+    const { storeToken, authenticateUser } = useUserContext();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
             return;
         }
-        console.log(e.target.name + ": ", account[e.target.name], " --> ", e.target.value);
+        //console.log(e.target.name + ": ", account[e.target.name], " --> ", e.target.value);
+        console.log(e.target.name + ": ", e.target.value);
         const accountChanged = { ...account };
         accountChanged[e.target.name] = e.target.value;
         setAccount(accountChanged);
         setFormChanged(true);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         clearPassword();
-        postData();
-        //handleClear(e);
+        const success = await postData("/login", account, setResponseMessage, storeToken);
+        if (success) {
+            await authenticateUser();
+            //navigate("/");
+        }
+        else {
+            //handleClear(e);
+        }
     }
 
     function handleClear(e) {
         setFormChanged(false);
         setAccount({ ...empty });
         setShowPassword(false);
+        setResponseMessage(undefined)
+    }
+
+    function clearPassword() {
+        const pwInput = document.querySelector('input[name="password"]');
+        pwInput.value = "";
     }
 
     function toggleShowPassword(e) {
         setShowPassword(e.target.checked);
-    }
-
-    function postData() {
-        if (typeof (account) !== "object" || Object.values(account).some((value) => !value || value == "")) {
-            return;
-        }
-        console.log("POST", account);
     }
 
     return (
@@ -66,6 +78,7 @@ function LoginForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged)}>Login</button>
+                        {resonseMessage && <p>{resonseMessage}</p>}
                     </div>
                 </div>
             </form>

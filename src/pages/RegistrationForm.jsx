@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../Form.css"
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
-import { Link, useNavigate } from "react-router-dom";
 import useAxiosAPI from "../axiosAPI.js"
+import { Link, useNavigate } from "react-router-dom";
 
 
 function RegistrationForm() {
@@ -14,13 +14,15 @@ function RegistrationForm() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const { postData } = useAxiosAPI();
+    const [resonseMessage, setResponseMessage] = useState(undefined);
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
             return;
         }
         if (e.target.name !== "password2" && e.target.name !== "show") {
-            console.log(e.target.name + ": ", account[e.target.name], " --> ", e.target.value);
+            //console.log(e.target.name + ": ", account[e.target.name], " --> ", e.target.value);
+            console.log(e.target.name + ": ", e.target.value);
             const accountChanged = { ...account };
             accountChanged[e.target.name] = e.target.value;
             setAccount(accountChanged);
@@ -32,12 +34,13 @@ function RegistrationForm() {
     async function handleSubmit(e) {
         e.preventDefault();
         clearPassword();
-        const success = await postData("/register", account);
+        const success = await postData("/register", account, setResponseMessage);
         if (success) {
-            navigate("/login");
-            return;
+            //navigate("/login");
         }
-        //handleClear(e);
+        else {
+            //handleClear();
+        }
     }
 
     function handleClear(e) {
@@ -45,6 +48,7 @@ function RegistrationForm() {
         setAccount({ ...empty });
         setSamePassword(false);
         setShowPassword(false);
+        setResponseMessage(undefined);
     }
 
     function clearPassword() {
@@ -91,6 +95,7 @@ function RegistrationForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged)}>Register</button>
+                        {resonseMessage && <p>{resonseMessage}</p>}
                     </div>
                 </div>
             </form>
