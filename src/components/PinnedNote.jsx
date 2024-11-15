@@ -36,7 +36,6 @@ function PinnedNote({ entry, handleDrag }) {
         if (!handleDrag) {
             return;
         }
-        console.log(e._reactName, e);
         handleDrag(e._reactName, entry);
     }
 

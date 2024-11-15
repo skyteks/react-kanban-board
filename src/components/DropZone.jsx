@@ -24,7 +24,6 @@ function DropZone({ visible, keyName, setDropzoneKey }) {
     const isActive = canDrop && isOver
 
     function handleDrop(e) {
-        console.log(e._reactName, e);
         setDropzoneKey(keyName);
     }
     

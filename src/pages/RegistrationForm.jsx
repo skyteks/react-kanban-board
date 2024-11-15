@@ -39,7 +39,7 @@ function RegistrationForm() {
             //navigate("/login");
         }
         else {
-            //handleClear();
+            //handleClear(e);
         }
     }
 
