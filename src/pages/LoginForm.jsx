@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../Form.css";
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 import useAxiosAPI from "../axiosAPI.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
 
 function LoginForm() {
@@ -15,6 +15,7 @@ function LoginForm() {
     const [responseMessage, setResponseMessage] = useState(undefined);
     const { storeToken, authenticateUser } = useUserContext();
     const navigate = useNavigate();
+    const username = useParams()?.username;
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -65,7 +66,7 @@ function LoginForm() {
                 <div className="form-block">
                     <div className="form-group">
                         <label htmlFor="email">E-Mail:</label>
-                        <input type="email" name="email" onChange={handleFormInput} required={true} />
+                        <input type="email" name="email" onChange={handleFormInput} required={true} value={username ? username : ""} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>

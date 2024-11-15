@@ -22,10 +22,11 @@ function App() {
             <SidePanel doClick={toggleShowSide} visible={showSide} />
             <Routes>
                 <Route path="/" element={<Board />} />
-                <Route path="/create/" element={<CreateNewForm />} />
-                <Route path="/about/" element={<AboutPage />} />
-                <Route path="/register/" element={<RegistrationForm />} />
-                <Route path="/login/" element={<LoginForm />} />
+                <Route path="/create" element={<CreateNewForm />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/register" element={<RegistrationForm />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/login/:username" element={<LoginForm />} />
 
                 <Route path="/error/:errorId" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error/404" />} />

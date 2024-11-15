@@ -37,10 +37,10 @@ function RegistrationForm() {
         clearPassword();
         const success = await postData("/register", account, setResponseMessage);
         if (success) {
-            //navigate("/login");
+            navigate("/login/" + account.username);
         }
         else {
-            //handleClear(e);
+            handleClear(e, false);
         }
     }
 
