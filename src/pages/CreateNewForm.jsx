@@ -5,7 +5,6 @@ import "../Form.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector.jsx";
 import PinnedNote from "../components/PinnedNote";
-import getStatusMeaning from "../HelperFunctions"
 import colorsData from "../data/colors.json";
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 
@@ -57,12 +56,14 @@ function CreateNewForm() {
         }
         console.log("POST", entry);
         axios.post(url, entry)
-            .then((result) => {
-                console.log("POST", getStatusMeaning(result.status));
+            .then((response) => {
+                const responseMessage = getStatusMeaning(response.status)[0];
+                console.log("POST", responseMessage);
             })
             .catch((error) => {
-                console.log("POST", getStatusMeaning(error.status));
-                navigate(("/error/" + error.status), error.status);
+                const responseMessage = getStatusMeaning(error.status)[0];
+                console.error("PATCH", responseMessage);
+                navigate(("/error/" + error.status));
             })
     }
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useAxiosAPI from "../axiosAPI";
+import {formatTime} from "../HelperFunctions";
 
 const TOKEN_NAME = "authToken";
 const UserContext = createContext(null);
@@ -41,6 +42,13 @@ function UserContextProvider({ children }) {
         const storedToken = getToken();
 
         function handleResponseData(data) {
+            function logTokenPayload(payload) {
+                const issuedAt = new Date(payload.iat * 1000);
+                const expiresAt = new Date(payload.exp * 1000);
+                const currentTime = Math.floor(Date.now() / 1000);
+                const remainingLifetime = payload.exp - currentTime;
+                console.log("TOKEN", "remaining lifetime:", formatTime(remainingLifetime), "created:", issuedAt, "expires:", expiresAt);
+            }
             logTokenPayload(data);
 
             setUsername(data.username);
@@ -68,20 +76,7 @@ function UserContextProvider({ children }) {
     )
 }
 
-function logTokenPayload(payload) {
-    const issuedAt = new Date(payload.iat * 1000);
-    const expiresAt = new Date(payload.exp * 1000);
-    const currentTime = Math.floor(Date.now() / 1000);
-    const remainingLifetime = payload.exp - currentTime;
-    console.log("TOKEN", "remaining lifetime:", formatTime(remainingLifetime), "created:", issuedAt, "expires:", expiresAt);
-}
 
-function formatTime(seconds) {
-    const hrs = Math.floor(seconds / 3600).toString().padStart(2, '0');
-    const mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-    const secs = (seconds % 60).toString().padStart(2, '0');
-    return `${hrs}:${mins}:${secs}`;
-}
 
 export default UserContextProvider;
 

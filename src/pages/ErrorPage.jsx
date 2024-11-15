@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import getStatusMeaning from "../HelperFunctions"
+import { getStatusMeaning } from "../HelperFunctions"
 
 function ErrorPage() {
     const { errorId } = useParams();

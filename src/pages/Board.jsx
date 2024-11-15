@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PinnedNote from "../components/PinnedNote";
 import DropZone from "../components/DropZone";
-import getStatusMeaning from "../HelperFunctions"
 import { useNavigate } from "react-router-dom";
+import { getStatusMeaning } from "../HelperFunctions";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
@@ -17,29 +17,33 @@ function Board() {
 
     function getData() {
         axios.get(url)
-            .then((result) => {
-                console.log("GET", getStatusMeaning(result.status));
-                setProductsData(result.data);
+            .then((response) => {
+                const responseMessage = getStatusMeaning(response.status)[0];
+                console.log("GET", responseMessage);
+                setProductsData(response.data);
                 setDataLoaded(true);
             })
             .catch((error) => {
-                console.error("GET", getStatusMeaning(error.status));
+                const responseMessage = getStatusMeaning(error.status)[0];
+                console.error("GET", responseMessage);
                 navigate(("/error/" + error.status));
             })
     }
 
     function patchData(entry) {
         const changes = { status: dropzoneKey };
-        console.log("status: ", entry.status, " --> ", changes.status);
+        console.log("status:", entry.status, " --> ", changes.status);
         axios.patch(url + "/" + entry.id, changes)
-            .then((result) => {
-                console.log("PATCH", getStatusMeaning(result.status));
+            .then((response) => {
+                const responseMessage = getStatusMeaning(response.status)[0];
+                console.log("PATCH", responseMessage);
                 setTimeout(() => {
                     getData();
                 }, 1);
             })
             .catch((error) => {
-                console.error("PATCH", getStatusMeaning(error.status));
+                const responseMessage = getStatusMeaning(error.status)[0];
+                console.error("PATCH", responseMessage);
                 navigate(("/error/" + error.status));
             })
     }

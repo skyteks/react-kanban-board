@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../Form.css";
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 import useAxiosAPI from "../axiosAPI.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
 
 function LoginForm() {
@@ -12,8 +12,9 @@ function LoginForm() {
     const { theme } = useThemeContext();
     const [showPassword, setShowPassword] = useState(false);
     const { postData } = useAxiosAPI();
-    const [resonseMessage, setResponseMessage] = useState(undefined);
+    const [responseMessage, setResponseMessage] = useState(undefined);
     const { storeToken, authenticateUser } = useUserContext();
+    const navigate = useNavigate();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -25,26 +26,28 @@ function LoginForm() {
         accountChanged[e.target.name] = e.target.value;
         setAccount(accountChanged);
         setFormChanged(true);
+        setResponseMessage(undefined);
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
-        clearPassword();
         const success = await postData("/login", account, setResponseMessage, storeToken);
         if (success) {
             await authenticateUser();
-            //navigate("/");
+            navigate("/");
         }
         else {
-            //handleClear(e);
+            handleClear(e, false);
         }
     }
 
-    function handleClear(e) {
+    function handleClear(e, clearResponseMessage = true) {
         setFormChanged(false);
         setAccount({ ...empty });
         setShowPassword(false);
-        setResponseMessage(undefined)
+        if (clearResponseMessage) {
+            setResponseMessage(undefined);
+        }
     }
 
     function clearPassword() {
@@ -78,7 +81,7 @@ function LoginForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged)}>Login</button>
-                        {resonseMessage && <p>{resonseMessage}</p>}
+                        <span>{responseMessage ? responseMessage : " "}</span>
                     </div>
                 </div>
             </form>

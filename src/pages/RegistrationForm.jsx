@@ -14,7 +14,7 @@ function RegistrationForm() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const { postData } = useAxiosAPI();
-    const [resonseMessage, setResponseMessage] = useState(undefined);
+    const [responseMessage, setResponseMessage] = useState(undefined);
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -29,6 +29,7 @@ function RegistrationForm() {
         }
         setFormChanged(true);
         setSamePassword(checkPassword());
+        setResponseMessage(undefined);
     }
 
     async function handleSubmit(e) {
@@ -43,12 +44,14 @@ function RegistrationForm() {
         }
     }
 
-    function handleClear(e) {
+    function handleClear(e, clearResponseMessage = true) {
         setFormChanged(false);
         setAccount({ ...empty });
         setSamePassword(false);
         setShowPassword(false);
-        setResponseMessage(undefined);
+        if (clearResponseMessage) {
+            setResponseMessage(undefined);
+        }
     }
 
     function clearPassword() {
@@ -95,7 +98,7 @@ function RegistrationForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged)}>Register</button>
-                        {resonseMessage && <p>{resonseMessage}</p>}
+                        <p>{responseMessage ? responseMessage : " "}</p>
                     </div>
                 </div>
             </form>
