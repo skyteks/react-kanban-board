@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Form.css";
 import { useThemeContext } from "../context/ThemeContextProvider.jsx";
 import useAxiosAPI from "../axiosAPI.js";
@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
 
 function LoginForm() {
-    const empty = { email: "", password: "" }
+    const empty = { username: "", password: "" }
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
     const { theme } = useThemeContext();
@@ -15,7 +15,14 @@ function LoginForm() {
     const [responseMessage, setResponseMessage] = useState(undefined);
     const { storeToken, authenticateUser } = useUserContext();
     const navigate = useNavigate();
-    const username = useParams()?.username;
+    const paramsUsername = useParams()?.username;
+
+    useEffect(() => {
+        if (paramsUsername) {
+            account.username = paramsUsername;
+            setAccount(account);
+        }
+    }, [])
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -65,8 +72,8 @@ function LoginForm() {
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">
-                        <label htmlFor="email">E-Mail:</label>
-                        <input type="email" name="email" onChange={handleFormInput} required={true} value={username ? username : ""} />
+                        <label htmlFor="username">Username:</label>
+                        <input type="username" name="username" onChange={handleFormInput} required={true} defaultValue={paramsUsername ? paramsUsername : ""} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>
