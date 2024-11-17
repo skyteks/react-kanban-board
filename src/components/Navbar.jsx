@@ -1,6 +1,8 @@
 import { useThemeContext } from "../context/ThemeContextProvider";
 import logo from "./../assets/logo-ironhack-blue.png";
 import { Link } from "react-router-dom";
+import dark from "../assets/dark.png";
+import light from "../assets/light.png";
 
 function Navbar({ click1 }) {
 
@@ -24,7 +26,7 @@ function Navbar({ click1 }) {
             <div style={{ height: "100%", display: "flex" }}>
                 <button onClick={handleThemeToggle} style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", border: "none", borderRadius: "50%" }}>
                     <img
-                        src={theme ? "./src/assets/light.png" : "./src/assets/dark.png"} alt="theme toggle"
+                        src={theme ? light : dark} alt="theme toggle"
                         style={{ height: "90%", minHeigh: "20px", borderRadius: "50%" }}
                     />
                 </button>
