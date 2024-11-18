@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../Form.css";
-import { useThemeContext } from "../context/ThemeContextProvider.jsx";
-import useAxiosAPI from "../axiosAPI.js";
+import { useThemeContext } from "../context/ThemeContextProvider";
+import useAxiosAPI from "../axiosAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
 
@@ -11,9 +11,9 @@ function LoginForm() {
     const [formChanged, setFormChanged] = useState(false);
     const { theme } = useThemeContext();
     const [showPassword, setShowPassword] = useState(false);
-    const { postData } = useAxiosAPI();
+    const { postAccount } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
-    const { storeToken, authenticateUser } = useUserContext();
+    const { authenticateUser } = useUserContext();
     const navigate = useNavigate();
     const paramsUsername = useParams()?.username;
 
@@ -22,7 +22,7 @@ function LoginForm() {
             account.username = paramsUsername;
             setAccount(account);
         }
-    }, [])
+    }, []);
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.name.lenght == 0 || e.target.value === undefined || account[e.target.name] === e.target.value || (!account[e.target.name] && !e.target.value)) {
@@ -39,7 +39,7 @@ function LoginForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const success = await postData("/login", account, setResponseMessage, storeToken);
+        const success = await postAccount("/login", account, setResponseMessage);
         if (success) {
             await authenticateUser();
             navigate("/");
@@ -73,7 +73,7 @@ function LoginForm() {
                 <div className="form-block">
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
-                        <input type="username" name="username" onChange={handleFormInput} required={true} defaultValue={paramsUsername ? paramsUsername : ""} />
+                        <input type="text" name="username" onChange={handleFormInput} required={true} defaultValue={paramsUsername ? paramsUsername : ""} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>

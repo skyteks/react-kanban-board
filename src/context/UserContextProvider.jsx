@@ -9,7 +9,7 @@ function UserContextProvider({ children }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { getData } = useAxiosAPI();
+    const { getAccount } = useAxiosAPI();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -39,8 +39,6 @@ function UserContextProvider({ children }) {
     }
 
     async function authenticateUser() {
-        const storedToken = getToken();
-
         function handleResponseData(data) {
             function logTokenPayload(payload) {
                 const issuedAt = new Date(payload.iat * 1000);
@@ -56,7 +54,9 @@ function UserContextProvider({ children }) {
             setPassword(data.password);
         }
 
-        if (storedToken && await getData("/verify", storedToken, handleResponseData)) {
+        const token = getToken();
+
+        if (token && await getAccount("/verify", token, handleResponseData)) {
             setIsLoggedIn(true);
         } else {
             setUsername("");
@@ -67,7 +67,7 @@ function UserContextProvider({ children }) {
         }
     }
 
-    const exporting = { username, setUsername, email, setEmail, password, setPassword, isLoggedIn, storeToken, authenticateUser, logoutUser };
+    const exporting = { username, setUsername, email, setEmail, password, setPassword, isLoggedIn, storeToken, getToken, authenticateUser, logoutUser };
 
     return (
         <UserContext.Provider value={exporting}>
@@ -75,8 +75,6 @@ function UserContextProvider({ children }) {
         </UserContext.Provider>
     )
 }
-
-
 
 export default UserContextProvider;
 

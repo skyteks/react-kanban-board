@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../Form.css"
-import { useThemeContext } from "../context/ThemeContextProvider.jsx";
-import useAxiosAPI from "../axiosAPI.js"
+import { useThemeContext } from "../context/ThemeContextProvider";
+import useAxiosAPI from "../axiosAPI"
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ function RegistrationForm() {
     const [samePassword, setSamePassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { postData } = useAxiosAPI();
+    const { postAccount } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
 
     function handleFormInput(e) {
@@ -35,7 +35,7 @@ function RegistrationForm() {
     async function handleSubmit(e) {
         e.preventDefault();
         clearPassword();
-        const success = await postData("/register", account, setResponseMessage);
+        const success = await postAccount("/register", account, setResponseMessage);
         if (success) {
             navigate("/login/" + account.username);
         }
