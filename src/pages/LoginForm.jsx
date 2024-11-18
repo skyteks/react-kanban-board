@@ -13,9 +13,10 @@ function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const { postAccount } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
-    const { authenticateUser } = useUserContext();
+    const { authenticateUser, storeToken, isLoggedIn } = useUserContext();
     const navigate = useNavigate();
     const paramsUsername = useParams()?.username;
+    const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
         if (paramsUsername) {
@@ -39,10 +40,15 @@ function LoginForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const success = await postAccount("/login", account, setResponseMessage);
+        clearPassword();
+        setSubmitted(true);
+        const success = await postAccount("/login", account, setResponseMessage, storeToken);
         if (success) {
             await authenticateUser();
-            navigate("/");
+            setTimeout(() => {
+                setSubmitted(false);
+                navigate("/");
+            }, 1000);
         }
         else {
             handleClear(e, false);
@@ -56,6 +62,7 @@ function LoginForm() {
         if (clearResponseMessage) {
             setResponseMessage(undefined);
         }
+        setSubmitted(false);
     }
 
     function clearPassword() {
@@ -88,7 +95,7 @@ function LoginForm() {
                     <div className="form-group">
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
-                        <button type="submit" disabled={(!formChanged)}>Login</button>
+                        <button type="submit" disabled={(!formChanged || submitted || isLoggedIn)}>Login</button>
                         <span>{responseMessage ? responseMessage : " "}</span>
                     </div>
                 </div>

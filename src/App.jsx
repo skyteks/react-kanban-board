@@ -8,6 +8,8 @@ import ErrorPage from "./pages/ErrorPage";
 import AboutPage from "./pages/AboutPage";
 import RegistrationForm from "./pages/RegistrationForm";
 import LoginForm from "./pages/LoginForm";
+import IsAnon from "./context/IsAnon"
+import IsPrivate from "./context/IsPrivate"
 
 function App() {
     const [showSide, setShowSide] = useState(false);
@@ -22,11 +24,11 @@ function App() {
             <SidePanel doClick={toggleShowSide} visible={showSide} />
             <Routes>
                 <Route path="/" element={<Board />} />
-                <Route path="/create" element={<CreateNewForm />} />
+                <Route path="/create" element={<IsPrivate><CreateNewForm /></IsPrivate>} />
                 <Route path="/about" element={<AboutPage />} />
-                <Route path="/register" element={<RegistrationForm />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/login/:username" element={<LoginForm />} />
+                <Route path="/register" element={<IsAnon> <RegistrationForm /></IsAnon>} />
+                <Route path="/login" element={<IsAnon><LoginForm /></IsAnon>} />
+                <Route path="/login/:username" element={<IsAnon><LoginForm /></IsAnon>} />
 
                 <Route path="/error/:errorId" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate to="/error/404" />} />

@@ -3,6 +3,7 @@ import PinnedNote from "../components/PinnedNote";
 import DropZone from "../components/DropZone";
 import useAxiosAPI from "../axiosAPI";
 import { useUserContext } from "../context/UserContextProvider";
+import { useNavigate } from "react-router-dom";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
@@ -14,27 +15,37 @@ function Board() {
     const [usersData, setUsersData] = useState([]);
     const { getNotes, patchNote } = useAxiosAPI();
     const { getToken } = useUserContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getData();
     }, []);
 
     async function getData() {
+        setDataLoaded(false);
         const token = getToken();
-        const data = await getNotes(token);
-        setNotesData(data);
-        setDataLoaded(true);
+        const { success, data, statusCode } = await getNotes(token);
+        if (success) {
+            setNotesData(data);
+            setDataLoaded(true);
+        }
+        else {
+            setDataLoaded(true);
+            navigate(("/error/" + statusCode));
+        }
     }
 
     async function patchData(entry) {
         const token = getToken();
-        const requestBody = { status: dropzoneKey };
-        console.log("status:", entry.status, " --> ", requestBody.status);
-        const success = await patchNote(requestBody, token);
+        const newStatus = dropzoneKey;
+        const requestBody = { data: { status: newStatus } };
+        console.log("status:", entry.status, " --> ", newStatus);
+        const { success, statusCode } = await patchNote(requestBody, token);
         if (success) {
-            setTimeout(() => {
-                getData();
-            }, 1);
+            getData();
+        }
+        else {
+            navigate(("/error/" + statusCode));
         }
     }
 

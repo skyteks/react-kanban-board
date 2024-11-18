@@ -55,7 +55,7 @@ function CreateNewForm() {
             return;
         }
         console.log("POST", entry);
-        axios.post(url, entry)
+        axios.post(url, { data: entry })
             .then((response) => {
                 const responseMessage = getStatusMeaning(response.status)[0];
                 console.log("POST", responseMessage);
@@ -101,11 +101,9 @@ function CreateNewForm() {
                     <div className="form-group">
                         <label>Preview:</label>
                         <div className="form-preview">
-                            {
-                                //<div style={{ display: entry.color ? "block" : "none" }}>
+                            <div style={{ display: entry.color ? "block" : "none" }}>
                                 <PinnedNote entry={{ ...entry, color: entry.color ? entry.color : colors[0] }} handleDrag={null} />
-                                //</div>
-                            }
+                            </div>
                         </div>
                     </div>
                     <div className="form-group">

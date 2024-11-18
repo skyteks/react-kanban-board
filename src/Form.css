@@ -124,6 +124,7 @@ form button:disabled {
     border-style: inset;
     border-radius: 6px;
     color: black;
+    overflow: hidden;
 }
 
 .light,

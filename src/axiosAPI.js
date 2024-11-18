@@ -3,14 +3,13 @@ import { getStatusMeaning } from "./HelperFunctions";
 
 const API_URI = "http://localhost:3000";
 
-async function postAccount(uriPath, requestBody, setResponseMessage) {
+async function postAccount(uriPath, requestBody, setResponseMessage, storeToken) {
     const what = uriPath.substring(1).toUpperCase();
     if (typeof (requestBody) !== "object" || Object.values(requestBody).some((value) => !value || value == "")) {
         console.log(what, "Reqest Body has empty values");
         return false;
     }
     console.log("POST", "account", requestBody);
-    const { storeToken } = useUserContext();
 
     return await axios.post(API_URI + uriPath, requestBody)
         .then((response) => {
@@ -62,12 +61,13 @@ async function getNotes(token) {
             const responseMessage = getStatusMeaning(response.status)[0];
             console.log("MONGO", responseMessage);
 
-            return response.data;
+            return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
             const responseMessage = getStatusMeaning(error.status)[0];
             console.error("MONGO", responseMessage);
-            navigate(("/error/" + error.status));
+
+            return { statusCode: error.status, success: false };
         });
 }
 
@@ -80,14 +80,13 @@ async function patchNote(requestBody, token) {
             const responseMessage = getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);
 
-            return true;
+            return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
             const responseMessage = getStatusMeaning(error.status)[0];
             console.error("PATCH", responseMessage);
-            navigate(("/error/" + error.status));
 
-            return false;
+            return { statusCode: error.status, success: false };
         });
 }
 

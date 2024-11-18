@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useAxiosAPI from "../axiosAPI";
-import {formatTime} from "../HelperFunctions";
+import { formatTime } from "../HelperFunctions";
+import { data } from "autoprefixer";
 
 const TOKEN_NAME = "authToken";
 const UserContext = createContext(null);
@@ -39,15 +40,18 @@ function UserContextProvider({ children }) {
     }
 
     async function authenticateUser() {
+        function logTokenPayload(payload) {
+            const issuedAt = new Date(payload.iat * 1000);
+            const expiresAt = new Date(payload.exp * 1000);
+            const currentTime = Math.floor(Date.now() / 1000);
+            const remainingLifetime = payload.exp - currentTime;
+            console.log("TOKEN", "remaining lifetime:", formatTime(remainingLifetime), "created:", issuedAt, "expires:", expiresAt);
+        }
+
         function handleResponseData(data) {
-            function logTokenPayload(payload) {
-                const issuedAt = new Date(payload.iat * 1000);
-                const expiresAt = new Date(payload.exp * 1000);
-                const currentTime = Math.floor(Date.now() / 1000);
-                const remainingLifetime = payload.exp - currentTime;
-                console.log("TOKEN", "remaining lifetime:", formatTime(remainingLifetime), "created:", issuedAt, "expires:", expiresAt);
-            }
             logTokenPayload(data);
+            
+            console.log("AUTH logged in: ", data.username);
 
             setUsername(data.username);
             setEmail(data.email);
@@ -59,6 +63,8 @@ function UserContextProvider({ children }) {
         if (token && await getAccount("/verify", token, handleResponseData)) {
             setIsLoggedIn(true);
         } else {
+            console.log("AUTH not logged in!");
+
             setUsername("");
             setEmail("");
             setPassword("");
