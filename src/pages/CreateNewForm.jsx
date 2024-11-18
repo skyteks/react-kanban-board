@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../Form.css"
 import FormTextfields from "../components/FormTextfields";
@@ -12,11 +11,11 @@ function CreateNewForm() {
     const [count, setCount] = useState(1);
     const maxCount = 4;
     const [entry, setEntry] = useState({});
-    const url = "https://kanban-board-rest-api.up.railway.app/posts";
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
     const { theme } = useThemeContext();
     const colors = colorsData.colors;
+    const { postNote } = useAxiosAPI();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
@@ -34,13 +33,22 @@ function CreateNewForm() {
         setFormChanged(true);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        if (entry.status === undefined) {
-            entry.status = "backlog";
+
+        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.values(entry).some((value) => !value)) {
+            return;
         }
-        postData();
-        setFormChanged(false);
+
+        const requestBody = { data: entry };
+        const token = getToken();
+
+        const { success, statusCode } = await postNote(requestBody, token);
+        if (success) {
+        }
+        else {
+            navigate(("/error/" + statusCode));
+        }
     }
 
     function handleClear(e) {
@@ -48,23 +56,6 @@ function CreateNewForm() {
         setEntry({});
         setCount(1);
         document.querySelector('textarea[name="text1"]').setAttribute("style", "");
-    }
-
-    function postData() {
-        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.values(entry).some((value) => !value)) {
-            return;
-        }
-        console.log("POST", entry);
-        axios.post(url, { data: entry })
-            .then((response) => {
-                const responseMessage = getStatusMeaning(response.status)[0];
-                console.log("POST", responseMessage);
-            })
-            .catch((error) => {
-                const responseMessage = getStatusMeaning(error.status)[0];
-                console.error("PATCH", responseMessage);
-                navigate(("/error/" + error.status));
-            })
     }
 
     return (

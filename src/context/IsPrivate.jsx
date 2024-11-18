@@ -3,7 +3,7 @@ import { useUserContext } from "./UserContextProvider";
 
 function IsPrivate({ children }) {
 
-    const { isLoggedIn, isLoading } = useUserContext;
+    const { isLoggedIn, isLoading } = useUserContext();
 
     //if (isLoading) return <p>Loading ...</p>;
 

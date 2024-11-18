@@ -50,8 +50,8 @@ function UserContextProvider({ children }) {
 
         function handleResponseData(data) {
             logTokenPayload(data);
-            
-            console.log("AUTH logged in: ", data.username);
+
+            console.log("AUTH", "logged in:", data.username);
 
             setUsername(data.username);
             setEmail(data.email);
@@ -63,7 +63,7 @@ function UserContextProvider({ children }) {
         if (token && await getAccount("/verify", token, handleResponseData)) {
             setIsLoggedIn(true);
         } else {
-            console.log("AUTH not logged in!");
+            console.log("AUTH", "not logged in!");
 
             setUsername("");
             setEmail("");

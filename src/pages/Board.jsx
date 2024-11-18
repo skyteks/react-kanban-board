@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
     const [notesData, setNotesData] = useState([]);
-    const url = "http://localhost:3000/mongo";//"https://kanban-board-rest-api.up.railway.app/posts";//"https://my-json-server.typicode.com/skyteks/fake-json-rest-api/posts";
     const [isDragging, setIsDragging] = useState(false);
     const [draggedKey, setDraggedKey] = useState(null);
     const [dropzoneKey, setDropzoneKey] = useState(null);
@@ -38,8 +37,9 @@ function Board() {
     async function patchData(entry) {
         const token = getToken();
         const newStatus = dropzoneKey;
-        const requestBody = { data: { status: newStatus } };
+        const requestBody = { data: { _id: entry._id, status: newStatus } };
         console.log("status:", entry.status, " --> ", newStatus);
+
         const { success, statusCode } = await patchNote(requestBody, token);
         if (success) {
             getData();
