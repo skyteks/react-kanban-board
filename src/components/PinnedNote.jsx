@@ -3,7 +3,7 @@ import { useDrag } from "react-dnd";
 import pin from "../assets/pin.png"
 import NoteText from "./NoteText";
 
-function PinnedNote({ entry, handleDrag }) {
+function PinnedNote({ visible, entry, handleDrag }) {
     const color = entry.color;
     const maxAngle = 10;
     const [angle, setAngle] = useState(0);
@@ -41,7 +41,7 @@ function PinnedNote({ entry, handleDrag }) {
     }
 
     return (
-        <div style={{ width: size + "vw", height: size + "vw", display: "flex", justifyContent: "center", alignItems: "center", }}>
+        <div style={{ width: size + "vw", height: size + "vw", display: (visible ? "flex" : "none"), justifyContent: "center", alignItems: "center", }}>
             <div style={{ opacity: (dragging ? 0.2 : 1), width: "85%", height: "85%", rotate: angle + "deg", display: "flex", alignItems: "center", flexDirection: "column", boxShadow: "rgba(0,0,0,0.5) -8px 20px 9px" }}>
                 <img src={pin} style={{ opacity: (dragging ? 0.5 : 1), width: "30%", maxWidth: "55px", bottom: "85%", alignSelf: "center", marginLeft: "10%", position: "absolute", pointerEvents: "none", userSelect: "none" }} />
                 <div ref={dragRef} onDragStart={handleDragLocal} onDragEnd={handleDragLocal} style={{ width: "100%", height: "100%", backgroundColor: color, transitionDuration: "unset" }}>
