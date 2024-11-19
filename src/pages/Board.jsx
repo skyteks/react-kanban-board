@@ -12,7 +12,7 @@ function Board() {
     const [draggedKey, setDraggedKey] = useState(null);
     const [dropzoneKey, setDropzoneKey] = useState(null);
     const [usersData, setUsersData] = useState([]);
-    const { getNotes, patchNote } = useAxiosAPI();
+    const { getNotes, patchNote, getUsernames } = useAxiosAPI();
     const { getToken } = useUserContext();
     const navigate = useNavigate();
 
@@ -23,15 +23,29 @@ function Board() {
     async function getData() {
         setDataLoaded(false);
         const token = getToken();
-        const { success, data, statusCode } = await getNotes(token);
-        if (success) {
-            setNotesData(data);
-            setDataLoaded(true);
+        {
+            const { success, data, statusCode } = await getNotes(token);
+            if (success) {
+                setNotesData(data);
+            }
+            else {
+                setDataLoaded(true);
+                navigate(("/error/" + statusCode));
+            }
         }
-        else {
-            setDataLoaded(true);
-            navigate(("/error/" + statusCode));
+        {
+            const { success, data, statusCode } = await getUsernames(token);
+            if (success) {
+                setUsersData(data);
+            }
+            else {
+                setDataLoaded(true);
+                navigate(("/error/" + statusCode));
+            }
         }
+
+
+        setDataLoaded(true);
     }
 
     async function patchData(entry) {

@@ -13,7 +13,7 @@ function RegistrationForm() {
     const [samePassword, setSamePassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { postAccount } = useAxiosAPI();
+    const { postUser } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
     const [submitted, setSubmitted] = useState(false);
 
@@ -37,7 +37,7 @@ function RegistrationForm() {
         e.preventDefault();
         clearPassword();
         setSubmitted(true);
-        const success = await postAccount("/register", account, setResponseMessage);
+        const success = await postUser("/register", account, setResponseMessage);
         if (success) {
             setTimeout(() => {
                 setSubmitted(false);

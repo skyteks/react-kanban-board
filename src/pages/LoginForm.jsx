@@ -11,7 +11,7 @@ function LoginForm() {
     const [formChanged, setFormChanged] = useState(false);
     const { theme } = useThemeContext();
     const [showPassword, setShowPassword] = useState(false);
-    const { postAccount } = useAxiosAPI();
+    const { postUser } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
     const { authenticateUser, storeToken, isLoggedIn } = useUserContext();
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ function LoginForm() {
         e.preventDefault();
         clearPassword();
         setSubmitted(true);
-        const success = await postAccount("/login", account, setResponseMessage, storeToken);
+        const success = await postUser("/login", account, setResponseMessage, storeToken);
         if (success) {
             await authenticateUser();
             setTimeout(() => {

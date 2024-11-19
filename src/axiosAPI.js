@@ -3,7 +3,7 @@ import { getStatusMeaning } from "./HelperFunctions";
 
 const API_URI = "http://localhost:3000";
 
-async function postAccount(uriPath, requestBody, setResponseMessage, storeToken) {
+async function postUser(uriPath, requestBody, setResponseMessage, storeToken) {
     const what = uriPath.substring(1).toUpperCase();
     if (typeof (requestBody) !== "object" || Object.values(requestBody).some((value) => !value || value == "")) {
         console.log(what, "Reqest Body has empty values");
@@ -32,7 +32,7 @@ async function postAccount(uriPath, requestBody, setResponseMessage, storeToken)
         });
 }
 
-async function getAccount(uriPath, token, handleResponseData) {
+async function getUser(uriPath, token, handleResponseData) {
     const what = uriPath.substring(1).toUpperCase();
     const header = getTokenHeader(token);
     const uri = API_URI + uriPath;
@@ -54,9 +54,29 @@ async function getAccount(uriPath, token, handleResponseData) {
         });
 }
 
+async function getUsernames(token) {
+    const header = getTokenHeader(token);
+    const uri = API_URI + "/mongo/users";
+    console.log("GET", uri);
+
+    return await axios.get(uri, header)
+        .then((response) => {
+            const responseMessage = getStatusMeaning(response.status)[0];
+            console.log("MONGO", responseMessage);
+
+            return { data: response.data, statusCode: response.status, success: true };
+        })
+        .catch((error) => {
+            const responseMessage = getStatusMeaning(error.status)[0];
+            console.log("MONGO", responseMessage, error);
+
+            return { statusCode: error.status, success: false };
+        });
+}
+
 async function getNotes(token) {
     const header = getTokenHeader(token);
-    const uri = API_URI + "/mongo";
+    const uri = API_URI + "/mongo/notes";
     console.log("GET", uri);
 
     return await axios.get(uri, header)
@@ -76,7 +96,7 @@ async function getNotes(token) {
 
 async function patchNote(requestBody, token) {
     const header = getTokenHeader(token);
-    const uri = API_URI + "/mongo/" + requestBody.data._id;
+    const uri = API_URI + "/mongo/notes/" + requestBody.data._id;
     console.log("PATCH", uri, requestBody);
 
     return await axios.patch(uri, requestBody, header)
@@ -96,7 +116,7 @@ async function patchNote(requestBody, token) {
 
 async function postNote(requestBody, token) {
     const header = getTokenHeader(token);
-    const uri = API_URI + "/mongo";
+    const uri = API_URI + "/mongo/notes";
     console.log("POST", uri, requestBody);
 
     return await axios.post(uri, requestBody, header)
@@ -118,8 +138,9 @@ function getTokenHeader(token) {
 
 function useAxiosAPI() {
     return {
-        postAccount,
-        getAccount,
+        postUser,
+        getUser,
+        getUsernames,
         getNotes,
         patchNote,
         postNote,

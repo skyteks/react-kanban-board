@@ -11,7 +11,7 @@ function UserContextProvider({ children }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [_id, set_id] = useState(null);
-    const { getAccount } = useAxiosAPI();
+    const { getUser } = useAxiosAPI();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -62,7 +62,7 @@ function UserContextProvider({ children }) {
 
         const token = getToken();
 
-        if (token && await getAccount("/verify", token, handleResponseData)) {
+        if (token && await getUser("/verify", token, handleResponseData)) {
             setIsLoggedIn(true);
         } else {
             console.log("AUTH", "not logged in!");
