@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import PinnedNote from "../components/PinnedNote";
 import DropZone from "../components/DropZone";
 import useAxiosAPI from "../axiosAPI";
-import { useUserContext } from "../context/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 import jsonData from "../data/data.json"
 import { capitalize } from "../HelperFunctions";
@@ -12,9 +11,7 @@ function Board() {
     const [notesData, setNotesData] = useState([]);
     const [draggedNote, setDraggedNote] = useState(null);
     const [dropzoneInfo, setDropzoneInfo] = useState(null);
-    const [usersData, setUsersData] = useState([]);
-    const { getNotes, patchNote, getUsernames } = useAxiosAPI();
-    const { getToken } = useUserContext();
+    const { getNotes, patchNote } = useAxiosAPI();
     const navigate = useNavigate();
     const { statusTypes } = jsonData;
 
@@ -24,50 +21,27 @@ function Board() {
 
     async function getData() {
         setDataLoaded(false);
-        const token = getToken();
 
-        const [getNodesResult, getUsernamesResult] = await Promise.all([getNotes(token), getUsernames(token)]);
-
-        {
-            const { success, data, statusCode } = getNodesResult;
-            if (success) {
-                setNotesData(data);
-            }
-            else {
-                setDataLoaded(true);
-                navigate(("/error/" + statusCode));
-                return;
-            }
+        const { success, data, statusCode } = await getNotes();
+        if (success) {
+            setNotesData(data);
         }
-
-        {
-            const { success, data, statusCode } = getUsernamesResult;
-            if (success) {
-                setUsersData(data);
-            }
-            else {
-                setDataLoaded(true);
-                navigate(("/error/" + statusCode));
-                return;
-            }
+        else {
+            setDataLoaded(true);
+            navigate(("/error/" + statusCode));
+            return;
         }
         setDataLoaded(true);
     }
 
     async function patchData(entry) {
-        const token = getToken();
-        const changedData = { _id: entry._id };
-        if (entry.status !== dropzoneInfo.status) {
-            console.log("status:", entry.status, " --> ", dropzoneInfo.status);
-            changedData.status = dropzoneInfo.status;
+        const changedData = { id: entry.id };
+        if (entry.status !== dropzoneInfo) {
+            console.log("status:", entry.status, " --> ", dropzoneInfo);
+            changedData.status = dropzoneInfo;
         }
-        if (entry.author !== dropzoneInfo.user_id) {
-            console.log("author:", entry.author, " --> ", dropzoneInfo.user_id);
-            changedData.author = dropzoneInfo.user_id;
-        }
-        const requestBody = { data: changedData };
 
-        const { success, statusCode } = await patchNote(requestBody, token);
+        const { success, statusCode } = await patchNote(changedData);
         if (success) {
             getData();
         }
@@ -102,9 +76,6 @@ function Board() {
             <table>
                 <tbody>
                     <tr>
-                        <th>
-                            <h3>Authors</h3>
-                        </th>
                         {statusTypes &&
                             statusTypes.map((status) => {
                                 return (
@@ -115,37 +86,27 @@ function Board() {
                             })
                         }
                     </tr>
-                    {usersData &&
-                        usersData
-                            .map((user) => {
+                    <tr>
+                        {statusTypes &&
+                            statusTypes.map((status) => {
                                 return (
-                                    <tr key={user.username}>
-                                        <td key={`${user.username}_author}`}>
-                                            <h3>{user.username}</h3>
-                                        </td>
-                                        {statusTypes &&
-                                            statusTypes.map((status) => {
-                                                return (
-                                                    <td key={`${user.username}_${status}`}>
-                                                        <DropZone visible={draggedNote && (draggedNote.status != status || draggedNote.author != user._id)} info={{ status, user_id: user._id }} setInfo={setDropzoneInfo} key={`${user.username}_${status}_dropZone`} />
-                                                        {notesData &&
-                                                            notesData
-                                                                .filter((entry) => entry.author === user._id && entry.status === status)
-                                                                .map((entry) => {
-                                                                    return (
-                                                                        <PinnedNote visible={!draggedNote || draggedNote?._id === entry._id} entry={entry} handleDrag={handleDrag} key={`${user.username}_${status}_${entry.title}`} />
-                                                                    );
-                                                                })
-                                                        }
-                                                    </td>
-                                                );
-                                            })
+                                    <td key={`_${status}`}>
+                                        <DropZone visible={draggedNote && draggedNote.status != status} info={status} setInfo={setDropzoneInfo} key={`_${status}_dropZone`} />
+                                        {notesData &&
+                                            notesData
+                                                .filter((entry) => entry.status === status)
+                                                .map((entry) => {
+                                                    return (
+                                                        <PinnedNote visible={!draggedNote || draggedNote?.id === entry.id} entry={entry} handleDrag={handleDrag} key={`_${status}_${entry.title}`} />
+                                                    );
+                                                })
                                         }
-
-                                    </tr>
+                                    </td>
                                 );
                             })
-                    }
+                        }
+
+                    </tr>
                 </tbody>
             </table>
         </main>

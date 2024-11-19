@@ -7,7 +7,6 @@ import PinnedNote from "../components/PinnedNote";
 import jsonData from "../data/data.json";
 import { useThemeContext } from "../context/ThemeContextProvider";
 import useAxiosAPI from "../axiosAPI";
-import { useUserContext } from "../context/UserContextProvider";
 import { capitalize } from "../HelperFunctions";
 
 function CreateNewForm() {
@@ -19,7 +18,6 @@ function CreateNewForm() {
     const { theme } = useThemeContext();
     const { colors, statusTypes } = jsonData;
     const { postNote } = useAxiosAPI();
-    const { _id, getToken } = useUserContext();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
@@ -44,10 +42,7 @@ function CreateNewForm() {
             return;
         }
 
-        const requestBody = { data: { ...entry, author: _id } };
-        const token = getToken();
-
-        const { success, statusCode } = await postNote(requestBody, token);
+        const { success, statusCode } = await postNote(entry);
         if (success) {
         }
         else {
