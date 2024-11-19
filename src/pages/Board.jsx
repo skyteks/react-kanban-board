@@ -26,8 +26,10 @@ function Board() {
         setDataLoaded(false);
         const token = getToken();
 
+        const [getNodesResult, getUsernamesResult] = await Promise.all([getNotes(token), getUsernames(token)]);
+
         {
-            const { success, data, statusCode } = await getNotes(token);
+            const { success, data, statusCode } = getNodesResult;
             if (success) {
                 setNotesData(data);
             }
@@ -39,7 +41,7 @@ function Board() {
         }
 
         {
-            const { success, data, statusCode } = await getUsernames(token);
+            const { success, data, statusCode } = getUsernamesResult;
             if (success) {
                 setUsersData(data);
             }
@@ -125,7 +127,7 @@ function Board() {
                                             statusTypes.map((status) => {
                                                 return (
                                                     <td key={`${user.username}_${status}`}>
-                                                        <DropZone visible={draggedNote && (draggedNote.status != status || draggedNote.author != user._id)} info={{status, user_id: user._id }} setInfo={setDropzoneInfo} key={`${user.username}_${status}_dropZone`} />
+                                                        <DropZone visible={draggedNote && (draggedNote.status != status || draggedNote.author != user._id)} info={{ status, user_id: user._id }} setInfo={setDropzoneInfo} key={`${user.username}_${status}_dropZone`} />
                                                         {notesData &&
                                                             notesData
                                                                 .filter((entry) => entry.author === user._id && entry.status === status)
