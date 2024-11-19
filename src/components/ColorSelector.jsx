@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import colorsData from "../data/colors.json";
+import jsonData from "../data/data.json";
 
 function ColorSelector({ doChange }) {
-    const colors = colorsData.colors;
+    const { colors } = jsonData;
     const [selectedColor, setSelectedColor] = useState(colors[0]);
 
     function handleColorSelect(e) {

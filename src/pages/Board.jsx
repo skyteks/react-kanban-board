@@ -4,6 +4,7 @@ import DropZone from "../components/DropZone";
 import useAxiosAPI from "../axiosAPI";
 import { useUserContext } from "../context/UserContextProvider";
 import { useNavigate } from "react-router-dom";
+import jsonData from "../data/data.json"
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
@@ -15,6 +16,7 @@ function Board() {
     const { getNotes, patchNote, getUsernames } = useAxiosAPI();
     const { getToken } = useUserContext();
     const navigate = useNavigate();
+    const { statusTypes } = jsonData;
 
     useEffect(() => {
         getData();
@@ -112,78 +114,38 @@ function Board() {
                             <h3>Done</h3>
                         </th>
                     </tr>
-                    <tr>
-                        <td>
-                            {usersData &&
-                                usersData
-                                    .map((entry) => {
-                                        return (
-                                            <h3 key={entry.username}>{entry.username}</h3>
-                                        );
-                                    })
-                            }
-                        </td>
-                        <td>
-                            <DropZone visible={isDragging && draggedKey != "backlog"} keyName="backlog" setDropzoneKey={setDropzoneKey} />
-                            {notesData &&
-                                notesData
-                                    .filter((entry) => entry.status === "backlog")
-                                    .map((entry) => {
-                                        return (
-                                            <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
-                                        );
-                                    })
-                            }
-                        </td>
-                        <td>
-                            <DropZone visible={isDragging && draggedKey != "todo"} keyName="todo" setDropzoneKey={setDropzoneKey} />
-                            {
-                                notesData
-                                    .filter((entry) => entry.status === "todo")
-                                    .map((entry) => {
-                                        return (
-                                            <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
-                                        );
-                                    })
-                            }
-                        </td>
-                        <td>
-                            <DropZone visible={isDragging && draggedKey != "doing"} keyName="doing" setDropzoneKey={setDropzoneKey} />
-                            {
-                                notesData
-                                    .filter((entry) => entry.status === "doing")
-                                    .map((entry) => {
-                                        return (
-                                            <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
-                                        );
-                                    })
-                            }
-                        </td>
-                        <td>
-                            <DropZone visible={isDragging && draggedKey != "test"} keyName="test" setDropzoneKey={setDropzoneKey} />
-                            {
-                                notesData
-                                    .filter((entry) => entry.status === "test")
-                                    .map((entry) => {
-                                        return (
-                                            <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
-                                        );
-                                    })
-                            }
-                        </td>
-                        <td>
-                            <DropZone visible={isDragging && draggedKey != "done"} keyName="done" setDropzoneKey={setDropzoneKey} />
-                            {
-                                notesData
-                                    .filter((entry) => entry.status === "done")
-                                    .map((entry) => {
-                                        return (
-                                            <PinnedNote entry={entry} key={entry.id} handleDrag={handleDrag} />
-                                        );
-                                    })
-                            }
-                        </td>
-                    </tr>
+                    {usersData &&
+                        usersData
+                            .map((user) => {
+                                return (
+                                    <tr key={user.username}>
+                                        <td key={user.username + "_author"}>
+                                            <h3>{user.username}</h3>
+                                        </td>
+                                        {statusTypes &&
+                                            statusTypes.map((status) => {
+                                                return (
+                                                    <td key={user.username + "_" + status}>
+                                                        <DropZone visible={!isDragging && draggedKey != status} keyName={status} setDropzoneKey={setDropzoneKey} key={status + "_" + user.username + "_dropZone"}/>
+                                                        {notesData &&
+                                                            notesData
+                                                                .filter((entry) => entry.author === user._id)
+                                                                .filter((entry) => entry.status === status)
+                                                                .map((entry) => {
+                                                                    return (
+                                                                        <PinnedNote visible={!isDragging} entry={entry} key={status + "_" + user.username + "_" + entry.title} handleDrag={handleDrag} />
+                                                                    );
+                                                                })
+                                                        }
+                                                    </td>
+                                                );
+                                            })
+                                        }
+
+                                    </tr>
+                                );
+                            })
+                    }
                 </tbody>
             </table>
         </main>

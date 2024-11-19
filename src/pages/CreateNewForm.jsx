@@ -4,10 +4,11 @@ import "../Form.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector";
 import PinnedNote from "../components/PinnedNote";
-import colorsData from "../data/colors.json";
+import jsonData from "../data/data.json";
 import { useThemeContext } from "../context/ThemeContextProvider";
 import useAxiosAPI from "../axiosAPI";
 import { useUserContext } from "../context/UserContextProvider";
+import { capitalize } from "../HelperFunctions";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -16,7 +17,7 @@ function CreateNewForm() {
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
     const { theme } = useThemeContext();
-    const colors = colorsData.colors;
+    const { colors, statusTypes } = jsonData;
     const { postNote } = useAxiosAPI();
     const { _id, getToken } = useUserContext();
 
@@ -43,7 +44,7 @@ function CreateNewForm() {
             return;
         }
 
-        const requestBody = { data: {...entry, author: _id} };
+        const requestBody = { data: { ...entry, author: _id } };
         const token = getToken();
 
         const { success, statusCode } = await postNote(requestBody, token);
@@ -71,12 +72,14 @@ function CreateNewForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="status">Status:</label>
-                        <select name="status" id="status" onChange={handleFormInput} required={true}>
-                            <option value="backlog" defaultChecked={true}>Backlog</option>
-                            <option value="todo">To Do</option>
-                            <option value="doing">Doing</option>
-                            <option value="test">Test</option>
-                            <option value="done">Done</option>
+                        <select name="status" id="status" onChange={handleFormInput} required={true} defaultChecked={false}>
+                            {statusTypes &&
+                                statusTypes.map((status) => {
+                                    return (
+                                        <option value={status}>{capitalize(status)}</option>
+                                    );
+                                })
+                            }
                         </select>
                     </div>
                     <ColorSelector doChange={handleFormInput} />
