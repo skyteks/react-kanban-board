@@ -99,7 +99,7 @@ async function postNote(requestBody, token) {
     const uri = API_URI + "/mongo";
     console.log("POST", uri, requestBody);
 
-    return await axios.post(url, requestBody, header)
+    return await axios.post(uri, requestBody, header)
         .then((response) => {
             const responseMessage = getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);

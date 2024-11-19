@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Form.css"
 import FormTextfields from "../components/FormTextfields";
-import ColorSelector from "../components/ColorSelector.jsx";
+import ColorSelector from "../components/ColorSelector";
 import PinnedNote from "../components/PinnedNote";
 import colorsData from "../data/colors.json";
-import { useThemeContext } from "../context/ThemeContextProvider.jsx";
+import { useThemeContext } from "../context/ThemeContextProvider";
+import useAxiosAPI from "../axiosAPI";
+import { useUserContext } from "../context/UserContextProvider";
 
 function CreateNewForm() {
     const [count, setCount] = useState(1);
@@ -16,6 +18,7 @@ function CreateNewForm() {
     const { theme } = useThemeContext();
     const colors = colorsData.colors;
     const { postNote } = useAxiosAPI();
+    const { _id, getToken } = useUserContext();
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
@@ -40,7 +43,7 @@ function CreateNewForm() {
             return;
         }
 
-        const requestBody = { data: entry };
+        const requestBody = { data: {...entry, author: _id} };
         const token = getToken();
 
         const { success, statusCode } = await postNote(requestBody, token);

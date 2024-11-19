@@ -10,6 +10,7 @@ function UserContextProvider({ children }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [_id, set_id] = useState(null);
     const { getAccount } = useAxiosAPI();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -51,11 +52,12 @@ function UserContextProvider({ children }) {
         function handleResponseData(data) {
             logTokenPayload(data);
 
-            console.log("AUTH", "logged in:", data.username);
+            console.log("AUTH", "logged in:", data.username, data._id);
 
             setUsername(data.username);
             setEmail(data.email);
             setPassword(data.password);
+            set_id(data._id);
         }
 
         const token = getToken();
@@ -68,12 +70,13 @@ function UserContextProvider({ children }) {
             setUsername("");
             setEmail("");
             setPassword("");
+            set_id(null);
 
             setIsLoggedIn(false);
         }
     }
 
-    const exporting = { username, setUsername, email, setEmail, password, setPassword, isLoggedIn, storeToken, getToken, authenticateUser, logoutUser };
+    const exporting = { username, setUsername, email, setEmail, password, setPassword, _id, isLoggedIn, storeToken, getToken, authenticateUser, logoutUser };
 
     return (
         <UserContext.Provider value={exporting}>
