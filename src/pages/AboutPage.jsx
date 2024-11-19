@@ -25,7 +25,7 @@ function AboutPage() {
             </div>
 
             <h2>Source</h2>
-            <p>React App Repo: <a href="https://github.com/skyteks/react-kanban-board" target="_blank">https://github.com/skyteks/react-kanban-board</a></p>
+            <p>React App Repo: <a href="https://github.com/skyteks/react-kanban-board/tree/standalone" target="_blank">https://github.com/skyteks/react-kanban-board/tree/standalone</a></p>
             <p>JSON Server Backend Repo: <a href="https://github.com/skyteks/json-server-backend" target="_blank">https://github.com/skyteks/json-server-backend</a></p>
             <p>Railway Backend Server: <a href="https://kanban-board-rest-api.up.railway.app/" target="_blank">https://kanban-board-rest-api.up.railway.app/posts</a></p>
 
