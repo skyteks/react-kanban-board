@@ -21,6 +21,7 @@ function CreateNewForm() {
     const { postNote } = useAxiosAPI();
     const { _id, getToken } = useUserContext();
     const [responseMessage, setResponseMessage] = useState(undefined);
+    const [submitted, setSubmitted] = useState(false);
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
@@ -71,7 +72,7 @@ function CreateNewForm() {
     }
 
     return (
-        <main className={theme}>
+        <main id="Form" className={theme}>
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">
@@ -84,7 +85,7 @@ function CreateNewForm() {
                             {statusTypes &&
                                 statusTypes.map((status) => {
                                     return (
-                                        <option value={status}>{capitalize(status)}</option>
+                                        <option key={status} value={status}>{capitalize(status)}</option>
                                     );
                                 })
                             }

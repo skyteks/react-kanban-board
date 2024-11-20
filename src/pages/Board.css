@@ -1,0 +1,35 @@
+main#Board {
+    padding-top: calc(var(--nav-height) + 20px);
+}
+
+main#Board.light {
+    background-color: var(--board-color);
+}
+
+main#Board.dark {
+    background-color: var(--board-color-dark);
+}
+
+#Board table {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+}
+
+#Board th,
+#Board td {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    align-items: center;
+}
+
+#Board tr {
+    display: flex;
+    align-items: start;
+}
+
+#Board tbody,
+#Board tr {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+}

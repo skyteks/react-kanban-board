@@ -79,7 +79,7 @@ function LoginForm() {
     }
 
     return (
-        <main className={theme}>
+        <main id="Form" className={theme}>
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

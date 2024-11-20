@@ -12,6 +12,7 @@ html {
     --theme-transition-duration: 1s;
     --nav-height: 60px;
     --board-color: #cfba81;
+    --board-color-dark: sienna;
 
     height: 100vh;
     font-size: 16px;
@@ -21,7 +22,6 @@ html {
 body {
 
     margin: 0%;
-    background-color: var(--board-color);
     top: 0px;
     height: inherit;
 }
@@ -70,35 +70,17 @@ nav {
     row-gap: 10px;
 }
 
-table {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-}
-
-th,
-td {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    align-items: center;
-}
-
-tr {
-    display: flex;
-    align-items: start;
-}
-
 /* Styles */
-h1 {
-    font-size: 2rem;
-    font-weight: 700;
-}
 
 ul {
     list-style-type: '- ';
     padding-left: 6%;
     font-size: 1vw;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .side-panel a,
@@ -117,11 +99,17 @@ ul {
     text-decoration: none;
 }
 
-tbody,
-tr {
-    border: 2px solid rgba(0, 0, 0, 0.5);
+.note-text {
+    color: black;
+    font-family: 'Inter', sans-serif;
 }
 
-.note-text {
-    font-family: 'Inter', sans-serif;
+.light,
+.light * {
+    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
+}
+
+.dark,
+.dark * {
+    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
 }

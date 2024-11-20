@@ -1,4 +1,4 @@
-:has(>form) {
+main#Form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     height: calc(100%);
 }
 
-form {
+#Form form {
     padding: 30px;
     width: 100%;
     max-width: 1000px;
@@ -17,81 +17,81 @@ form {
     border-style: outset;
 }
 
-.form-block {
+#Form .form-block {
     display: flex;
     flex-direction: column;
     gap: 5px;
     flex: 1;
 }
 
-.form-group {
+#Form .form-group {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-label {
+#Form label {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.color-selection {
+#Form .color-selection {
     background-color: white;
     transition: border-color 0.3s;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea,
-.color-option,
-.color-selection {
+#Form input[type="text"],
+#Form input[type="email"],
+#Form input[type="password"],
+#Form select,
+#Form textarea,
+#Form .color-option,
+#Form .color-selection {
     padding: 5px;
     border-radius: 4px;
     border: 1px solid transparent;
     cursor: pointer;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea,
-.color-option {
+#Form input[type="text"],
+#Form input[type="email"],
+#Form input[type="password"],
+#Form select,
+#Form textarea,
+#Form .color-option {
     display: flex;
     align-items: center;
 }
 
-.color-option {
+#Form .color-option {
     transition: none;
 }
 
-.color-option span {
+#Form .color-option span {
     font-style: initial;
     font-size: 14px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-select:focus,
-textarea:focus,
-.color-selection:focus-within {
+#Form input[type="text"]:focus,
+#Form input[type="email"]:focus,
+#Form input[type="password"]:focus,
+#Form select:focus,
+#Form textarea:focus,
+#Form .color-selection:focus-within {
     border-color: #007bff;
     outline: none;
 }
 
-.color-option.highlight {
+#Form .color-option.highlight {
     border: 1px solid darkgray;
 }
 
-textarea {
+#Form textarea {
     resize: vertical;
     min-height: 40px;
 }
 
-form button {
+#Form form button {
     padding: 12px 20px;
     border-radius: 6px;
     cursor: pointer;
@@ -99,17 +99,17 @@ form button {
     width: 100%;
 }
 
-form button:hover:not(:disabled) {
+#Form form button:hover:not(:disabled) {
     transform: translateY(-2px) translateX(2px);
 }
 
-form button:disabled {
+#Form form button:disabled {
     cursor: not-allowed;
     color: inherit;
     opacity: 50%;
 }
 
-.color-preview {
+#Form .color-preview {
     width: 20px;
     height: 20px;
     border: 1px solid black;
@@ -117,7 +117,7 @@ form button:disabled {
     margin-right: 10px;
 }
 
-.form-preview {
+#Form .form-preview {
     background-color: var(--board-color);
     border: 2px;
     border-color: black;
@@ -127,45 +127,35 @@ form button:disabled {
     overflow: hidden;
 }
 
-.light,
-.light * {
-    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
-}
-
-.dark,
-.dark * {
-    transition: color var(--theme-transition-duration), background-color var(--theme-transition-duration);
-}
-
-main.light {
+main#Form.light {
     background-color: darkgray;
 }
 
-main.dark {
+main#Form.dark {
     background-color: black;
 }
 
-.light form {
+#Form.light form {
     background-color: #ccc;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     border-color: black;
     color: black
 }
 
-.dark form {
+#Form.dark form {
     background-color: #222;
     box-shadow: 0 8px 30px rgba(1, 1, 1, 0.1);
     border-color: #ccc;
     color: white;
 }
 
-.dark input[type="text"],
-.dark input[type="email"],
-.dark input[type="password"],
-.dark select,
-.dark .color-selection,
-.dark textarea,
-.dark button {
+#Form.dark input[type="text"],
+#Form.dark input[type="email"],
+#Form.dark input[type="password"],
+#Form.dark select,
+#Form.dark .color-selection,
+#Form.dark textarea,
+#Form.dark button {
     background-color: #444;
     color: white;
 }
