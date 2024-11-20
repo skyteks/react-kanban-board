@@ -1,7 +1,10 @@
+import { useThemeContext } from "../context/ThemeContextProvider";
+
 function AboutPage() {
+    const { theme } = useThemeContext();
 
     return (
-        <main style={{backgroundColor: "grey", height: "100%"}}>
+        <main className={theme}>
             <h2>Introduction</h2>
             <p>This is a little kanban-board web-app made with React.js, to be used for planning.</p>
 
