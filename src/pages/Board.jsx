@@ -102,13 +102,13 @@ function Board() {
             <table>
                 <tbody>
                     <tr>
-                        <th>
+                        <th key={"author"}>
                             <h3>Authors</h3>
                         </th>
                         {statusTypes &&
                             statusTypes.map((status) => {
                                 return (
-                                    <th>
+                                    <th key={status}>
                                         <h3>{status == "todo" ? "To Do" : capitalize(status)}</h3>
                                     </th>
                                 );

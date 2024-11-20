@@ -42,8 +42,12 @@ function LoginForm() {
         e.preventDefault();
         clearPassword();
         setSubmitted(true);
-        const success = await postUser("/login", account, setResponseMessage, storeToken);
+        const { data, statusCode, message, success } = await postUser("/login", account);
+        setResponseMessage({ message, statusCode, success });
         if (success) {
+            if (data.authToken) {
+                storeToken(data.authToken);
+            }
             await authenticateUser();
             setTimeout(() => {
                 setSubmitted(false);
@@ -96,7 +100,7 @@ function LoginForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged || submitted || isLoggedIn)}>Login</button>
-                        <span>{responseMessage ? responseMessage : " "}</span>
+                        <p style={responseMessage && { color: (responseMessage.success ? "green" : "red") }}>{responseMessage ? responseMessage.message : " "}</p>
                     </div>
                 </div>
             </form>

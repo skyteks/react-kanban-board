@@ -3,7 +3,7 @@ import { getStatusMeaning } from "./HelperFunctions";
 
 const API_URI = "http://localhost:3000";
 
-async function postUser(uriPath, requestBody, setResponseMessage, storeToken) {
+async function postUser(uriPath, requestBody) {
     const what = uriPath.substring(1).toUpperCase();
     if (typeof (requestBody) !== "object" || Object.values(requestBody).some((value) => !value || value == "")) {
         console.log(what, "Reqest Body has empty values");
@@ -14,25 +14,20 @@ async function postUser(uriPath, requestBody, setResponseMessage, storeToken) {
 
     return await axios.post(uri, requestBody)
         .then((response) => {
-            const responseMessage = response.statusText;
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log(what, responseMessage);
-            setResponseMessage(responseMessage);
-
-            if (storeToken && response.data.authToken) {
-                storeToken(response.data.authToken);
-            }
-            return true;
+            
+            return { data: response.data, statusCode: response.status, message: response.statusText, success: true };
         })
         .catch((error) => {
-            const responseMessage = error.response.data.message;
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log(what, responseMessage);
-            setResponseMessage(responseMessage);
 
-            return false;
+            return { statusCode: error.status, message: error.message, success: false };
         });
 }
 
-async function getUser(uriPath, token, handleResponseData) {
+async function getUser(uriPath, token) {
     const what = uriPath.substring(1).toUpperCase();
     const header = getTokenHeader(token);
     const uri = API_URI + uriPath;
@@ -40,17 +35,16 @@ async function getUser(uriPath, token, handleResponseData) {
 
     return await axios.get(uri, header)
         .then((response) => {
-            const responseMessage = response.statusText;
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log(what, responseMessage);
-            handleResponseData(response.data);
 
-            return true;
+            return { data: response.data, statusCode: response.status, message: response.statusText, success: true };
         })
         .catch((error) => {
-            const responseMessage = error.message;
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log(what, responseMessage);
 
-            return false;
+            return { statusCode: error.status, message: error.message, success: false };
         });
 }
 
@@ -61,14 +55,14 @@ async function getUsernames(token) {
 
     return await axios.get(uri, header)
         .then((response) => {
-            const responseMessage = getStatusMeaning(response.status)[0];
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("MONGO", responseMessage);
 
             return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
-            const responseMessage = getStatusMeaning(error.status)[0];
-            console.log("MONGO", responseMessage, error);
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
+            console.log("MONGO", responseMessage);
 
             return { statusCode: error.status, success: false };
         });
@@ -81,14 +75,14 @@ async function getNotes(token) {
 
     return await axios.get(uri, header)
         .then((response) => {
-            const responseMessage = getStatusMeaning(response.status)[0];
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("MONGO", responseMessage);
 
             return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
-            const responseMessage = getStatusMeaning(error.status)[0];
-            console.log("MONGO", responseMessage, error);
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
+            console.log("MONGO", responseMessage);
 
             return { statusCode: error.status, success: false };
         });
@@ -101,14 +95,14 @@ async function patchNote(requestBody, token) {
 
     return await axios.patch(uri, requestBody, header)
         .then((response) => {
-            const responseMessage = getStatusMeaning(response.status)[0];
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);
 
             return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
-            const responseMessage = getStatusMeaning(error.status)[0];
-            console.log("PATCH", responseMessage, error);
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
+            console.log("PATCH", responseMessage);
 
             return { statusCode: error.status, success: false };
         });
@@ -121,13 +115,15 @@ async function postNote(requestBody, token) {
 
     return await axios.post(uri, requestBody, header)
         .then((response) => {
-            const responseMessage = getStatusMeaning(response.status)[0];
+            const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);
+
             return { data: response.data, statusCode: response.status, success: true };
         })
         .catch((error) => {
-            const responseMessage = getStatusMeaning(error.status)[0];
-            console.log("PATCH", responseMessage, error);
+            const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
+            console.log("PATCH", responseMessage);
+
             return { statusCode: error.status, success: false };
         })
 }

@@ -37,7 +37,8 @@ function RegistrationForm() {
         e.preventDefault();
         clearPassword();
         setSubmitted(true);
-        const success = await postUser("/register", account, setResponseMessage);
+        const { statusCode, message, success } = await postUser("/register", account);
+        setResponseMessage({ message, statusCode, success });
         if (success) {
             setTimeout(() => {
                 setSubmitted(false);
@@ -104,7 +105,7 @@ function RegistrationForm() {
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
                         <button type="submit" disabled={(!formChanged || submitted)}>Register</button>
-                        <p>{responseMessage ? responseMessage : " "}</p>
+                        <p style={responseMessage && { color: (responseMessage.success ? "green" : "red") }}>{responseMessage ? responseMessage.message : " "}</p>
                     </div>
                 </div>
             </form>

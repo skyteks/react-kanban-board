@@ -11,7 +11,7 @@ import UserContextProvider from "./context/UserContextProvider";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <React.StrictMode>
+    //<React.StrictMode>
         <UserContextProvider>
             <ThemeContextProvider>
                 <DndProvider backend={HTML5Backend}>
@@ -21,5 +21,5 @@ root.render(
                 </DndProvider>
             </ThemeContextProvider>
         </UserContextProvider>
-    </React.StrictMode>
+    //</React.StrictMode>
 );

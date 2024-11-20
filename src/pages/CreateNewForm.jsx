@@ -20,6 +20,7 @@ function CreateNewForm() {
     const { colors, statusTypes } = jsonData;
     const { postNote } = useAxiosAPI();
     const { _id, getToken } = useUserContext();
+    const [responseMessage, setResponseMessage] = useState(undefined);
 
     function handleFormInput(e) {
         if (!e.target.name || e.target.value === undefined || entry[e.target.name] === e.target.value || (!entry[e.target.name] && !e.target.value)) {
@@ -35,23 +36,29 @@ function CreateNewForm() {
         console.log(e.target.name + ": ", entry[e.target.name], " --> ", e.target.value);
         setEntry(entryChanged);
         setFormChanged(true);
+        setResponseMessage(undefined);
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (typeof (entry) !== "object" || Object.keys(entry).length == 0 || JSON.stringify(entry) === "{}" || Object.values(entry).some((value) => !value)) {
+        if (typeof (entry) !== "object" || Object.keys(entry).length == 0) {
             return;
         }
 
         const requestBody = { data: { ...entry, author: _id } };
         const token = getToken();
 
-        const { success, statusCode } = await postNote(requestBody, token);
+        setSubmitted(true);
+        const { success, statusCode, message } = await postNote(requestBody, token);
+        setResponseMessage({ message, statusCode, success });
         if (success) {
+            setTimeout(() => {
+                setSubmitted(false);
+            }, 1000);
         }
         else {
-            navigate(("/error/" + statusCode));
+            //navigate(("/error/" + statusCode));
         }
     }
 
@@ -60,6 +67,7 @@ function CreateNewForm() {
         setEntry({});
         setCount(1);
         document.querySelector('textarea[name="text1"]').setAttribute("style", "");
+        setResponseMessage(undefined);
     }
 
     return (
@@ -106,7 +114,8 @@ function CreateNewForm() {
                     <div className="form-group">
                         <label>Submit:</label>
                         <button type="reset" onClick={handleClear}>Clear</button>
-                        <button type="submit" disabled={!formChanged}>Create</button>
+                        <button type="submit" disabled={!formChanged || submitted}>Create</button>
+                        <p style={responseMessage && { color: (responseMessage.success ? "green" : "red") }}>{responseMessage ? responseMessage.message : " "}</p>
                     </div>
                 </div>
             </form>
