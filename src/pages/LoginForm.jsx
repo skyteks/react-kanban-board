@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../Form.css";
+import "./Form.css";
 import { useThemeContext } from "../context/ThemeContextProvider";
 import useAxiosAPI from "../axiosAPI";
 import { useNavigate, useParams } from "react-router-dom";

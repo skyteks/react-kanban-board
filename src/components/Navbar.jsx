@@ -24,16 +24,16 @@ function Navbar({ click1 }) {
             </div>
 
             <div style={{ height: "100%", display: "flex" }}>
-                <button onClick={handleThemeToggle} style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", border: "none", borderRadius: "50%" }}>
+                <button onClick={handleThemeToggle} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: "50%" }}>
                     <img
                         src={isDark ? lightIcon : darkIcon} alt="theme toggle"
-                        style={{ height: "90%", minHeigh: "20px", borderRadius: "50%" }}
+                        style={{ height: "100%", borderRadius: "50%" }}
                     />
                 </button>
-                <button onClick={click1} style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "transparent", border: "none", borderRadius: "50%" }}>
+                <button onClick={click1} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "transparent", borderRadius: "50%" }}>
                     <img
                         src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"} alt="burger menu"
-                        style={{ height: "90%", minHeigh: "20px", borderRadius: "50%" }}
+                        style={{ height: "105%", borderRadius: "50%" }}
                     />
                 </button>
             </div>

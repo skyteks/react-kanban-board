@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Form.css"
+import "./Form.css"
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector";
 import PinnedNote from "../components/PinnedNote";

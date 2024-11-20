@@ -1,0 +1,40 @@
+main {
+    padding: 20px;
+}
+
+.light {
+    color: black;
+}
+
+.dark {
+    color: white;
+}
+
+main.light {
+    background-color: white;
+}
+
+main.dark {
+    background-color: #444;
+}
+
+a {
+    transition: color 0s;
+}
+
+.dark a {
+    color: aqua;
+}
+
+.dark a:visited {
+    color: magenta;
+}
+
+.code-block {
+    background-color: black;
+    color: white;
+    font-style: Consolas, monospace;
+    max-width: 300px;
+    margin-left: 20px;
+    padding: 2px 10px;
+}

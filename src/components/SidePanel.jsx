@@ -5,7 +5,7 @@ function SidePanel({ doClick, visible }) {
     const style = visible ? null : { display: "none" };
     const { isLoggedIn, logoutUser, username } = useUserContext();
 
-    return (
+    return visible && (
         <div className="side-panel" style={style} >
             <NavLink onClick={doClick} to={"/"}>Board</NavLink>
             <NavLink onClick={doClick} to={"/create"}>Create New Note</NavLink>

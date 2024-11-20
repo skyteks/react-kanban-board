@@ -1,4 +1,5 @@
 import { useThemeContext } from "../context/ThemeContextProvider";
+import "./AboutPage.css";
 
 function AboutPage() {
     const { theme } = useThemeContext();
@@ -13,7 +14,7 @@ function AboutPage() {
                 <li>Fork the repo</li>
                 <li>Clone the repo</li>
             </ul>
-            <div style={{ color: "white", backgroundColor: "black", fontStyle: "Consolas", maxWidth: "300px", marginLeft: "20px", padding: "2px 10px" }}>
+            <div className="code-block">
                 <pre><code>
                     <p>
                         cd react-kanban-board
