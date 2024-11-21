@@ -23,19 +23,6 @@ body {
 
     margin: 0%;
     top: 0px;
-    height: inherit;
-}
-
-#root {
-    height: inherit;
-}
-
-.app {
-    height: inherit;
-}
-
-main {
-    height: inherit;
 }
 
 nav,

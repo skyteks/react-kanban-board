@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import darkIcon from "../assets/dark.png";
 import lightIcon from "../assets/light.png";
 
-function Navbar({ click1 }) {
+function Navbar({ doClick1 }) {
 
     const { toggleTheme, isDark } = useThemeContext();
 
@@ -30,7 +30,7 @@ function Navbar({ click1 }) {
                         style={{ height: "100%", borderRadius: "50%" }}
                     />
                 </button>
-                <button onClick={click1} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "transparent", borderRadius: "50%" }}>
+                <button onClick={doClick1} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "transparent", borderRadius: "50%" }}>
                     <img
                         src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"} alt="burger menu"
                         style={{ height: "105%", borderRadius: "50%" }}

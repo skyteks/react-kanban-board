@@ -59,7 +59,7 @@ function CreateNewForm() {
             }, 1000);
         }
         else {
-            //navigate(("/error/" + statusCode));
+            navigate(("/error/" + statusCode));
         }
     }
 
@@ -107,9 +107,7 @@ function CreateNewForm() {
                     <div className="form-group">
                         <label>Preview:</label>
                         <div className="form-preview">
-                            <div style={{ display: entry.color ? "block" : "none" }}>
-                                <PinnedNote entry={{ ...entry, color: entry.color ? entry.color : colors[0] }} handleDrag={null} />
-                            </div>
+                            <PinnedNote hide={entry.color == true} entry={{ ...entry, color: entry.color ? entry.color : colors[0] }} handleDrag={null} />
                         </div>
                     </div>
                     <div className="form-group">

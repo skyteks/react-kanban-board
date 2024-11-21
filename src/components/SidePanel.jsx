@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
 
-function SidePanel({ doClick, visible }) {
-    const style = visible ? null : { display: "none" };
+function SidePanel({ doClick, hide }) {
+    const style = hide ? null : { display: "none" };
     const { isLoggedIn, logoutUser, username } = useUserContext();
 
-    return visible && (
+    return (
         <div className="side-panel" style={style} >
             <NavLink onClick={doClick} to={"/"}>Board</NavLink>
             <NavLink onClick={doClick} to={"/create"}>Create New Note</NavLink>

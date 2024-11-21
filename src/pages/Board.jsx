@@ -130,13 +130,13 @@ function Board() {
                                             statusTypes.map((status) => {
                                                 return (
                                                     <td key={`${user.username}_${status}`}>
-                                                        <DropZone visible={draggedNote && (draggedNote.status != status || draggedNote.author != user._id)} info={{ status, user_id: user._id }} setInfo={setDropzoneInfo} key={`${user.username}_${status}_dropZone`} />
+                                                        <DropZone hide={!draggedNote || (draggedNote.status == status && draggedNote.author == user._id)} info={{ status, user_id: user._id }} setInfo={setDropzoneInfo} key={`${user.username}_${status}_dropZone`} />
                                                         {notesData &&
                                                             notesData
                                                                 .filter((entry) => entry.author === user._id && entry.status === status)
                                                                 .map((entry) => {
                                                                     return (
-                                                                        <PinnedNote visible={!draggedNote || draggedNote?._id === entry._id} entry={entry} handleDrag={handleDrag} key={`${user.username}_${status}_${entry.title}`} />
+                                                                        <PinnedNote hide={draggedNote && draggedNote?._id !== entry._id} entry={entry} handleDrag={handleDrag} key={`${user.username}_${status}_${entry.title}`} />
                                                                     );
                                                                 })
                                                         }

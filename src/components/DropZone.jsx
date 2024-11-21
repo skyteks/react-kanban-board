@@ -1,8 +1,8 @@
 import { useDrop } from 'react-dnd'
 
-function DropZone({ visible, info, setInfo }) {
+function DropZone({ hide, info, setInfo }) {
     const size = 15;
-    const multi = 0.3;
+    const mult = 0.26;
 
     const [{ canDrop, isOver }, dropRef] = useDrop(() => {
         return {
@@ -28,7 +28,7 @@ function DropZone({ visible, info, setInfo }) {
     }
     
     return (
-        <div style={{ width: size + "vw", height: (size * multi) + "vw", display: (visible ? "flex" : "none"), justifyContent: "center", alignItems: "center" }}>
+        <div style={{ width: size + "vw", height: size * mult + "vw", display: (hide ? "none" : "flex"), justifyContent: "center", alignItems: "center" }}>
             <div ref={dropRef} onDrop={handleDrop} style={{ width: "85%", height: "85%", backgroundColor: "rgba(0,0,0,.1)", borderWidth: "3px", borderStyle: "dashed", borderColor: "rgba(0,0,0,.5)", borderRadius: "1vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <h4 style={{ color: "rgba(0,0,0,.5)" }}>
                     {isActive ? "Release to drop" : "Drag a note here"}
