@@ -3,9 +3,7 @@ import { useUserContext } from "./UserContextProvider";
 
 function IsAnon({ children }) {
 
-    const { isLoggedIn, isLoading } = useUserContext();
-
-    //if (isLoading) return <p>Loading ...</p>;
+    const { isLoggedIn } = useUserContext();
 
     if (isLoggedIn) {
         return <Navigate to="/" />;
