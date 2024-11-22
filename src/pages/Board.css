@@ -1,12 +1,8 @@
-main#Board {
-    padding-top: calc(var(--nav-height) + 20px);
-}
-
-main#Board.light {
+.light main#Board {
     background-color: var(--board-color);
 }
 
-main#Board.dark {
+.dark main#Board {
     background-color: var(--board-color-dark);
 }
 

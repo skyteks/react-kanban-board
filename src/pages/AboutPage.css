@@ -1,36 +1,26 @@
-main {
-    padding: 20px;
-}
-
-.light {
+.light #about-page {
+    background-color: white;
     color: black;
 }
 
-.dark {
+.dark #about-page {
+    background-color: #444;
     color: white;
 }
 
-main.light {
-    background-color: white;
-}
-
-main.dark {
-    background-color: #444;
-}
-
-a {
+#about-page a {
     transition: color 0s;
 }
 
-.dark a {
+#about-page.dark a {
     color: aqua;
 }
 
-.dark a:visited {
+#about-page.dark a:visited {
     color: magenta;
 }
 
-.code-block {
+#about-page .code-block {
     background-color: black;
     color: white;
     font-style: Consolas, monospace;

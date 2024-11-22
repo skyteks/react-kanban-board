@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
-import pin from "../assets/pin.png"
+import pin from "../assets/pin.png";
 import NoteText from "./NoteText";
+import "./PinnedNote.css";
 
 function PinnedNote({ hide, entry, handleDrag }) {
     const color = entry.color;
@@ -41,13 +42,11 @@ function PinnedNote({ hide, entry, handleDrag }) {
     }
 
     return (
-        <div style={{ width: size + "vw", height: size + "vw", display: (hide ? "none" : "flex"), justifyContent: "center", alignItems: "center", }}>
-            <div style={{ opacity: (dragging ? 0.2 : 1), width: "85%", height: "85%", rotate: angle + "deg", display: "flex", alignItems: "center", flexDirection: "column", boxShadow: "rgba(0,0,0,0.5) -8px 20px 9px" }}>
-                <img src={pin} style={{ opacity: (dragging ? 0.5 : 1), width: "30%", maxWidth: "55px", bottom: "85%", alignSelf: "center", marginLeft: "10%", position: "absolute", pointerEvents: "none", userSelect: "none" }} />
-                <div ref={dragRef} onDragStart={handleDragLocal} onDragEnd={handleDragLocal} style={{ width: "100%", height: "100%", backgroundColor: color, transitionDuration: "unset" }}>
-                    <div style={{ height: "80%", margin: "15% 5% 5%" }}>
-                        <NoteText entry={entry} />
-                    </div>
+        <div className="pinned-note" style={{ width: size + "vw", display: (hide ? "none" : "flex") }}>
+            <div style={{ opacity: (dragging ? 0.2 : 1), rotate: angle + "deg", }}>
+                <img src={pin} style={{ opacity: (dragging ? 0.5 : 1) }} />
+                <div ref={dragRef} onDragStart={handleDragLocal} onDragEnd={handleDragLocal} style={{ backgroundColor: color }}>
+                    <NoteText entry={entry} />
                 </div>
             </div>
         </div>

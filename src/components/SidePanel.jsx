@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
+import "./SidePanel.css"
 
 function SidePanel({ doClick, hide }) {
     const style = hide ? null : { display: "none" };

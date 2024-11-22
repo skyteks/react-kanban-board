@@ -1,40 +1,35 @@
 import { useThemeContext } from "../context/ThemeContextProvider";
-import logo from "./../assets/logo-ironhack-blue.png";
+import logoIcon from "./../assets/logo-ironhack-blue.png";
 import { Link } from "react-router-dom";
 import darkIcon from "../assets/dark.png";
 import lightIcon from "../assets/light.png";
+import "./Navbar.css";
+import burgerIcon from "../assets/burger.png";
 
 function Navbar({ doClick1 }) {
+    const { isDark, toggleTheme } = useThemeContext();
 
-    const { toggleTheme, isDark } = useThemeContext();
-
-    function handleThemeToggle(e) {
+    function handleThemeToggle(_e) {
         toggleTheme();
     }
 
     return (
         <nav>
-            <Link to="/" style={{ height: "100%", minHeigh: "20px" }}>
-                <img src={logo} alt="Logo" style={{ height: "100%" }} />
+            <Link className="navbar-logo" to="/" >
+                <img src={logoIcon} alt="Logo" />
             </Link>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <div className="navbar-title">
                 <h1>React Kanban-Board</h1>
-                <p style={{ fontSize: "11px" }}>(uses Drag & Drop)</p>
+                <p>(uses Drag & Drop)</p>
             </div>
 
-            <div style={{ height: "100%", display: "flex" }}>
-                <button onClick={handleThemeToggle} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: "50%" }}>
-                    <img
-                        src={isDark ? lightIcon : darkIcon} alt="theme toggle"
-                        style={{ height: "100%", borderRadius: "50%" }}
-                    />
+            <div className="navbar-actions">
+                <button className="theme-toggle-btn" onClick={handleThemeToggle} >
+                    <img src={isDark ? lightIcon : darkIcon} alt="theme toggle" />
                 </button>
-                <button onClick={doClick1} style={{ aspectRatio: "1/1", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "transparent", borderRadius: "50%" }}>
-                    <img
-                        src={"https://banner2.cleanpng.com/20180628/zaz/aayj9bx5v.webp"} alt="burger menu"
-                        style={{ height: "105%", borderRadius: "50%" }}
-                    />
+                <button className="burger-btn" onClick={doClick1} >
+                    <img src={burgerIcon} alt="burger menu" />
                 </button>
             </div>
         </nav>

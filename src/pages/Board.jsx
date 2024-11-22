@@ -6,8 +6,7 @@ import { useUserContext } from "../context/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 import jsonData from "../data/data.json"
 import { capitalize } from "../HelperFunctions";
-import "./Board.css"
-import { useThemeContext } from "../context/ThemeContextProvider";
+import "./Board.css";
 
 function Board() {
     const [dataLoaded, setDataLoaded] = useState(true);
@@ -19,7 +18,6 @@ function Board() {
     const { getToken } = useUserContext();
     const navigate = useNavigate();
     const { statusTypes } = jsonData;
-    const { theme } = useThemeContext();
 
     useEffect(() => {
         getData();
@@ -97,11 +95,11 @@ function Board() {
     }
 
     return !dataLoaded ? (
-        <main id="Board" className={theme}>
+        <main id="Board" className="loading">
             <p>loading...</p>
         </main>
     ) : (
-        <main id="Board" className={theme}>
+        <main id="Board">
             <table>
                 <tbody>
                     <tr>

@@ -1,7 +1,6 @@
 /* Typography */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Base styles */
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -13,8 +12,10 @@ html {
     --nav-height: 60px;
     --board-color: #cfba81;
     --board-color-dark: sienna;
+    --navbar-bg-color: rgb(37, 99, 235);
+    --navbar-bg-color-dark: midnightblue;
 
-    height: 100vh;
+    min-height: 100vh;
     font-size: 16px;
     font-family: Consolas, monaco, monospace;
 }
@@ -23,41 +24,22 @@ body {
 
     margin: 0%;
     top: 0px;
+    min-height: inherit;
 }
 
-nav,
-.side-panel {
-    background-color: rgb(37, 99, 235);
-    color: white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    display: flex;
+#root {
+    min-height: inherit;
 }
 
-nav {
-    width: 100%;
-    height: var(--nav-height);
-    max-width: 100vw;
-    position: fixed;
-    top: 0px;
-    z-index: 90;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
+.app {
+    min-height: inherit;
 }
 
-.side-panel {
-    height: calc(100vh - var(--nav-height));
-    width: 200px;
-    top: var(--nav-height);
-    right: 0px;
-    position: fixed;
-    z-index: 80;
-    flex-direction: column;
+main {
     padding: 20px;
-    row-gap: 10px;
+    padding-top: calc(var(--nav-height) + 20px);
+    min-height: inherit;
 }
-
-/* Styles */
 
 ul {
     list-style-type: '- ';
@@ -68,27 +50,6 @@ ul {
 h1 {
     font-size: 2rem;
     font-weight: 700;
-}
-
-.side-panel a,
-.side-panel button {
-    color: white;
-    background-color: transparent;
-    border: none;
-    text-decoration: underline;
-    font-size: inherit;
-    text-align: left;
-    padding: 0%;
-    cursor: pointer;
-}
-
-.side-panel a.active {
-    text-decoration: none;
-}
-
-.note-text {
-    color: black;
-    font-family: 'Inter', sans-serif;
 }
 
 .light,

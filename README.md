@@ -19,8 +19,8 @@ npm run dev
 React App Repo:
 https://github.com/skyteks/react-kanban-board
 
-JSON Server Backend Repo:
-https://github.com/skyteks/json-server-backend
+Express Server Backend Repo:
+https://github.com/skyteks/express-server
 
 
 

@@ -11,18 +11,20 @@ import LoginForm from "./pages/LoginForm";
 import IsAnon from "./context/IsAnon";
 import IsPrivate from "./context/IsPrivate";
 import HelloPage from "./pages/HelloPage";
+import { useThemeContext } from "./context/ThemeContextProvider";
 
 function App() {
     const [showSide, setShowSide] = useState(false);
+    const { theme } = useThemeContext();
 
     function toggleShowSide() {
         setShowSide(!showSide);
     }
 
     return (
-        <div className="app">
+        <div className={"app " + theme}>
             <Navbar doClick1={toggleShowSide} />
-            <SidePanel doClick={toggleShowSide} hide={!showSide} />
+            <SidePanel doClick={toggleShowSide} hide={showSide} />
             <Routes>
                 <Route path="/" element={<Board />} />
                 <Route path="/create" element={<IsPrivate><CreateNewForm /></IsPrivate>} />

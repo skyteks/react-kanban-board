@@ -1,0 +1,38 @@
+.side-panel {
+    height: calc(100vh - var(--nav-height));
+    width: 200px;
+    top: var(--nav-height);
+    right: 0px;
+    position: fixed;
+    z-index: 80;
+    flex-direction: column;
+    padding: 20px;
+    row-gap: 10px;
+    display: flex;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.light .side-panel {
+    background-color: var(--navbar-bg-color);
+}
+
+.dark .side-panel {
+    background-color: var(--navbar-bg-color-dark);
+}
+
+.side-panel a,
+.side-panel button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-size: inherit;
+    text-align: left;
+    padding: 0%;
+    cursor: pointer;
+}
+
+.side-panel a.active {
+    text-decoration: none;
+}

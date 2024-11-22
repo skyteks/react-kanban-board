@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./Form.css";
-import { useThemeContext } from "../context/ThemeContextProvider";
 import useAxiosAPI from "../axiosAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProvider";
@@ -9,7 +8,6 @@ function LoginForm() {
     const empty = { username: "", password: "" }
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
-    const { theme } = useThemeContext();
     const [showPassword, setShowPassword] = useState(false);
     const { postUser } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
@@ -83,7 +81,7 @@ function LoginForm() {
     }
 
     return (
-        <main id="Form" className={theme}>
+        <main id="Form">
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

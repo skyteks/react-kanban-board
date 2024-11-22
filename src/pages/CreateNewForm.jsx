@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Form.css"
+import "./Form.css";
 import FormTextfields from "../components/FormTextfields";
 import ColorSelector from "../components/ColorSelector";
 import PinnedNote from "../components/PinnedNote";
 import jsonData from "../data/data.json";
-import { useThemeContext } from "../context/ThemeContextProvider";
 import useAxiosAPI from "../axiosAPI";
 import { useUserContext } from "../context/UserContextProvider";
 import { capitalize } from "../HelperFunctions";
@@ -16,7 +15,6 @@ function CreateNewForm() {
     const [entry, setEntry] = useState({});
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
-    const { theme } = useThemeContext();
     const { colors, statusTypes } = jsonData;
     const { postNote } = useAxiosAPI();
     const { _id, getToken } = useUserContext();
@@ -72,7 +70,7 @@ function CreateNewForm() {
     }
 
     return (
-        <main id="Form" className={theme}>
+        <main id="Form">
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

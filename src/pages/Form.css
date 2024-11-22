@@ -125,37 +125,40 @@ main#Form {
     border-radius: 6px;
     color: black;
     overflow: hidden;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
 }
 
-main#Form.light {
+.light main#Form {
     background-color: darkgray;
 }
 
-main#Form.dark {
+.dark main#Form {
     background-color: black;
 }
 
-#Form.light form {
+.light #Form form {
     background-color: #ccc;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     border-color: black;
     color: black
 }
 
-#Form.dark form {
+.dark #Form form {
     background-color: #222;
     box-shadow: 0 8px 30px rgba(1, 1, 1, 0.1);
     border-color: #ccc;
     color: white;
 }
 
-#Form.dark input[type="text"],
-#Form.dark input[type="email"],
-#Form.dark input[type="password"],
-#Form.dark select,
-#Form.dark .color-selection,
-#Form.dark textarea,
-#Form.dark button {
+.dark #Form input[type="text"],
+.dark #Form input[type="email"],
+.dark #Form input[type="password"],
+.dark #Form select,
+.dark #Form .color-selection,
+.dark #Form textarea,
+.dark #Form button {
     background-color: #444;
     color: white;
 }

@@ -1,15 +1,13 @@
 import { useState } from "react";
-import "./Form.css"
-import { useThemeContext } from "../context/ThemeContextProvider";
-import useAxiosAPI from "../axiosAPI"
-import { Link, useNavigate } from "react-router-dom";
+import "./Form.css";
+import useAxiosAPI from "../axiosAPI";
+import { useNavigate } from "react-router-dom";
 
 
 function RegistrationForm() {
     const empty = { username: "", email: "", password: "" }
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
-    const { theme } = useThemeContext();
     const [samePassword, setSamePassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
@@ -83,7 +81,7 @@ function RegistrationForm() {
     }
 
     return (
-        <main id="Form" className={theme}>
+        <main id="Form">
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

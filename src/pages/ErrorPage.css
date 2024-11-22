@@ -1,0 +1,19 @@
+main#error-page {
+    flex-direction: column;
+    text-align: center;
+}
+
+main#error-page>* {
+    text-align: center;
+    align-content: center;
+}
+
+.light main#error-page {
+    background-color: white;
+    color: black;
+}
+
+.dark main#error-page {
+    background-color: #444;
+    color: white;
+}

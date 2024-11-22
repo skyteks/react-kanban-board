@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { getStatusMeaning } from "../HelperFunctions"
+import { getStatusMeaning } from "../HelperFunctions";
+import "./ErrorPage.css";
 
 function ErrorPage() {
     const { errorId } = useParams();
@@ -7,7 +8,7 @@ function ErrorPage() {
     const [status, meaning] = getStatusMeaning(code);
 
     return (
-        <main style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <main id="error-page">
             <div>
                 <h1>ERROR {code}</h1>
                 <h2>{status}</h2>
