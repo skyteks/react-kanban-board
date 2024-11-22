@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getStatusMeaning } from "./HelperFunctions";
 
-const backendUri = (import.meta.env.VITE_BACKEND_URI || "http://localhost") + (":" + import.meta.env.VITE_BACKEND_PORT ||":3000");
+const backendUri = (import.meta.env.VITE_BACKEND_URI || "http://localhost:3000");
 console.log(backendUri);
 
 
