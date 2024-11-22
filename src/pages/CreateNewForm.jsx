@@ -16,8 +16,8 @@ function CreateNewForm() {
     const [formChanged, setFormChanged] = useState(false);
     const navigate = useNavigate();
     const { colors, statusTypes } = jsonData;
-    const { postNote } = useAxiosAPI();
-    const { _id, getToken } = useUserContext();
+    const { axiosPost } = useAxiosAPI();
+    const { _id, getToken, username } = useUserContext();
     const [responseMessage, setResponseMessage] = useState(undefined);
     const [submitted, setSubmitted] = useState(false);
 
@@ -49,7 +49,7 @@ function CreateNewForm() {
         const token = getToken();
 
         setSubmitted(true);
-        const { success, statusCode, message } = await postNote(requestBody, token);
+        const { success, statusCode, message } = await axiosPost(requestBody, token, username);
         setResponseMessage({ message, statusCode, success });
         if (success) {
             setTimeout(() => {

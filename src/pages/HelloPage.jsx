@@ -3,7 +3,7 @@ import useAxiosAPI from "../axiosAPI";
 import { useNavigate } from "react-router-dom";
 
 function HelloPage() {
-    const { getUser } = useAxiosAPI();
+    const { axiosGet } = useAxiosAPI();
     const [stuff, setStuff] = useState(undefined);
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function HelloPage() {
     }, []);
 
     async function getData() {
-        const { success, data, statusCode } = getUser;
+        const { success, data, statusCode } = axiosGet("/hello");
         if (success) {
             setStuff(data);
             return data;

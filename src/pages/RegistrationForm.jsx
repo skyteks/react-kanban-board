@@ -11,7 +11,7 @@ function RegistrationForm() {
     const [samePassword, setSamePassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { postUser } = useAxiosAPI();
+    const { axiosPost } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
     const [submitted, setSubmitted] = useState(false);
 
@@ -39,7 +39,7 @@ function RegistrationForm() {
 
     async function postData() {
         setSubmitted(true);
-        const { statusCode, message, success } = await postUser("/register", account);
+        const { statusCode, message, success } = await axiosPost("/register", account);
         setResponseMessage({ message, statusCode, success });
         if (success) {
             setTimeout(() => {

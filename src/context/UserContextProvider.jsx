@@ -10,7 +10,7 @@ function UserContextProvider({ children }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [_id, set_id] = useState(null);
-    const { getUser } = useAxiosAPI();
+    const { axiosGet } = useAxiosAPI();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ function UserContextProvider({ children }) {
 
     async function authenticateUser() {
         const token = getToken();
-        const { data, success } = token ? await getUser("/verify", token) : { success: false };
+        const { data, success } = token ? await axiosGet("/verify", token) : { success: false };
         if (token && success) {
             logToken(data);
 

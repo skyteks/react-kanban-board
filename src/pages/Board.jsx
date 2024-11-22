@@ -14,8 +14,8 @@ function Board() {
     const [draggedNote, setDraggedNote] = useState(null);
     const [dropzoneInfo, setDropzoneInfo] = useState(null);
     const [usersData, setUsersData] = useState([]);
-    const { getNotes, patchNote, getUsernames } = useAxiosAPI();
-    const { getToken } = useUserContext();
+    const { axiosGet, axiosPatch } = useAxiosAPI();
+    const { getToken, username } = useUserContext();
     const navigate = useNavigate();
     const { statusTypes } = jsonData;
 
@@ -27,7 +27,7 @@ function Board() {
         setDataLoaded(false);
         const token = getToken();
 
-        const [getNodesResult, getUsernamesResult] = await Promise.all([getNotes(token), getUsernames(token)]);
+        const [getNodesResult, getUsernamesResult] = await Promise.all([axiosGet("/mongo/notes", token, username), axiosGet("/mongo/users", token, username)]);
 
         {
             const { success, data, statusCode } = getNodesResult;
@@ -68,7 +68,7 @@ function Board() {
         }
         const requestBody = { data: changedData };
 
-        const { success, statusCode } = await patchNote(requestBody, token);
+        const { success, statusCode } = await axiosPatch("/mongo/notes", requestBody, token, username);
         if (success) {
             getData();
         }

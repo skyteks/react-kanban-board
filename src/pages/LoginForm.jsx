@@ -9,7 +9,7 @@ function LoginForm() {
     const [account, setAccount] = useState({ ...empty });
     const [formChanged, setFormChanged] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const { postUser } = useAxiosAPI();
+    const { axiosPost } = useAxiosAPI();
     const [responseMessage, setResponseMessage] = useState(undefined);
     const { authenticateUser, storeToken, isLoggedIn } = useUserContext();
     const navigate = useNavigate();
@@ -44,7 +44,7 @@ function LoginForm() {
 
     async function postData() {
         setSubmitted(true);
-        const { data, statusCode, message, success } = await postUser("/login", account);
+        const { data, statusCode, message, success } = await axiosPost("/login", account);
         setResponseMessage({ message, statusCode, success });
         if (success) {
             if (data.authToken) {
