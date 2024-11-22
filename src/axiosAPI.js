@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import { getStatusMeaning } from "./HelperFunctions";
 
 const API_URI = "http://localhost:3000";
@@ -16,14 +16,16 @@ async function postUser(uriPath, requestBody) {
         .then((response) => {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log(what, responseMessage);
-            
-            return { data: response.data, statusCode: response.status, message: response.statusText, success: true };
+
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
+            console.log(error);
+            
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log(what, responseMessage);
 
-            return { statusCode: error.status, message: error.message, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         });
 }
 
@@ -38,13 +40,13 @@ async function getUser(uriPath, token) {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log(what, responseMessage);
 
-            return { data: response.data, statusCode: response.status, message: response.statusText, success: true };
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log(what, responseMessage);
 
-            return { statusCode: error.status, message: error.message, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         });
 }
 
@@ -58,13 +60,13 @@ async function getUsernames(token) {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("MONGO", responseMessage);
 
-            return { data: response.data, statusCode: response.status, success: true };
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log("MONGO", responseMessage);
 
-            return { statusCode: error.status, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         });
 }
 
@@ -78,13 +80,13 @@ async function getNotes(token) {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("MONGO", responseMessage);
 
-            return { data: response.data, statusCode: response.status, success: true };
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log("MONGO", responseMessage);
 
-            return { statusCode: error.status, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         });
 }
 
@@ -98,13 +100,13 @@ async function patchNote(requestBody, token) {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);
 
-            return { data: response.data, statusCode: response.status, success: true };
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log("PATCH", responseMessage);
 
-            return { statusCode: error.status, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         });
 }
 
@@ -118,13 +120,13 @@ async function postNote(requestBody, token) {
             const responseMessage = response.data.message ? response.data.message : getStatusMeaning(response.status)[0];
             console.log("PATCH", responseMessage);
 
-            return { data: response.data, statusCode: response.status, success: true };
+            return { data: response.data, statusCode: response.status, message: responseMessage, success: true };
         })
         .catch((error) => {
             const responseMessage = error.response.data.message ? error.response.data.message : getStatusMeaning(error.status)[0];
             console.log("PATCH", responseMessage);
 
-            return { statusCode: error.status, success: false };
+            return { statusCode: error.status, message: responseMessage, success: false };
         })
 }
 

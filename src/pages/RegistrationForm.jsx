@@ -33,9 +33,13 @@ function RegistrationForm() {
         setResponseMessage(undefined);
     }
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         clearPassword();
+        postData();
+    }
+
+    async function postData() {
         setSubmitted(true);
         const { statusCode, message, success } = await postUser("/register", account);
         setResponseMessage({ message, statusCode, success });
@@ -46,11 +50,11 @@ function RegistrationForm() {
             }, 1000);
         }
         else {
-            handleClear(e, false);
+            handleClear(null, false);
         }
     }
 
-    function handleClear(e, clearResponseMessage = true) {
+    function handleClear(_e, clearResponseMessage = true) {
         setFormChanged(false);
         setAccount({ ...empty });
         setSamePassword(false);
