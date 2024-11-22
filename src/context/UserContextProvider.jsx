@@ -41,7 +41,7 @@ function UserContextProvider({ children }) {
 
     async function authenticateUser() {
         const token = getToken();
-        const { data, success } = token ? await axiosGet("/verify", token) : { success: false };
+        const { data, success } = token ? await axiosGet("/verify", token, username ? username : null ) : { success: false };
         if (token && success) {
             logToken(data);
 
