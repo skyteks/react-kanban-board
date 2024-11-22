@@ -5,16 +5,26 @@
 This is a little kanban-board web-app made with React.js,
 to be used for planning.
 
+https://react-kanban-board-main.netlify.app/
+
 ## Setup
 
 - Fork this repo
+
 - Clone this repo
 
+- Add variables to ".env" file in root folder:
+```shell
+VITE_BACKEND_URI=
+```
+
+- run in shell/cmd:
 ```shell
 cd react-kanban-board
 npm install
 npm run dev
 ```
+
 ## Source
 
 React App Repo:
