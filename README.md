@@ -4,6 +4,8 @@
 This is a little kanban-board web-app made with React.js,
 to be used for planning.
 
+https://react-kanban-board-standalone.netlify.app/
+
 ## Setup
 
 - Fork this repo
@@ -14,6 +16,7 @@ cd react-kanban-board
 npm install
 npm run dev
 ```
+
 ## Source
 
 React App Repo:
