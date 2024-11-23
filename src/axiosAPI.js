@@ -78,10 +78,6 @@ function createHeader(token, username) {
     if (token) {
         headers.Authorization = `Bearer ${token}`;
     }
-    if (username) {
-        headers.username = username;
-    }
-    headers["Access-Control-Allow-Origin"] = "*";
     console.log("Headers:", headers);
     
     return { headers };
