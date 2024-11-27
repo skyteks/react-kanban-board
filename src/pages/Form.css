@@ -2,8 +2,8 @@ main#Form {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     padding: 20px;
-    height: calc(100%);
 }
 
 #Form form {

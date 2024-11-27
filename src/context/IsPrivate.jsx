@@ -6,7 +6,7 @@ function IsPrivate({ children }) {
     const { isLoggedIn } = useUserContext();
 
     if (!isLoggedIn) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/error/401" />;
     } else {
         return children;
     }

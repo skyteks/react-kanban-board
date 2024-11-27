@@ -71,6 +71,7 @@ function CreateNewForm() {
 
     return (
         <main id="Form">
+            <h1>Create new Note</h1>
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

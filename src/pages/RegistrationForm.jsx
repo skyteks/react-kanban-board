@@ -82,6 +82,7 @@ function RegistrationForm() {
 
     return (
         <main id="Form">
+            <h1>REGISTER</h1>
             <form onSubmit={handleSubmit} onClick={handleFormInput} onKeyUp={handleFormInput}>
                 <div className="form-block">
                     <div className="form-group">

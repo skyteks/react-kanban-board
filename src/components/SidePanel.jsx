@@ -9,7 +9,7 @@ function SidePanel({ doClick, hide }) {
     return (
         <div className="side-panel" style={style} >
             <NavLink onClick={doClick} to={"/"}>Board</NavLink>
-            <NavLink onClick={doClick} to={"/create"}>Create New Note</NavLink>
+            <NavLink onClick={doClick} to={"/create"}>Create new Note</NavLink>
             <NavLink onClick={doClick} to={"/about"}>About Page</NavLink>
             {
                 isLoggedIn ? (
