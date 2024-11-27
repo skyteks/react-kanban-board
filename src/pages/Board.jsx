@@ -68,7 +68,7 @@ function Board() {
         }
         const requestBody = { data: changedData };
 
-        const { success, statusCode } = await axiosPatch("/mongo/notes", requestBody, token, username);
+        const { success, statusCode } = await axiosPatch("/mongo/notes/", requestBody, token, username);
         if (success) {
             getData();
         }

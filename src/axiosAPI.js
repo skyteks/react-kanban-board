@@ -24,8 +24,8 @@ async function axiosGet(uriPath, token = null, username = null) {
 }
 
 async function axiosPost(uriPath, requestBody, username = null) {
-    if (typeof (requestBody) !== "object" || Object.values(requestBody).some((value) => !value || value == "")) {
-        console.error("POST", "Reqest Body has empty values");
+    if (!requestBody || Object.values(requestBody).some((value) => !value)) {
+        console.error("POST", "Reqest Body has empty values", requestBody);
         return false;
     }
     const header = createHeader(null, username);
@@ -49,13 +49,14 @@ async function axiosPost(uriPath, requestBody, username = null) {
         });
 }
 
-async function axiosPatch(requestBody, token, username) {
-    if (typeof (requestBody) !== "object" || Object.values(requestBody).some((value) => !value || value == "")) {
-        console.error("PATCH", "Reqest Body has empty values");
+async function axiosPatch(uriPath, requestBody, token, username) {
+    if (!requestBody || Object.values(requestBody).some((value) => !value)) {
+        console.error("PATCH", "Reqest Body has empty values", requestBody);
         return false;
     }
     const header = createHeader(token, username);
-    const uri = backendUri + "/mongo/notes/" + requestBody.data._id;
+    // TODO
+    const uri = backendUri + uriPath + requestBody.data._id;
     console.log("PATCH", uriPath, requestBody);
 
     return await axios.patch(uri, requestBody, header)
@@ -77,8 +78,8 @@ function createHeader(token, username) {
     const headers = {};
     if (token) {
         headers.Authorization = `Bearer ${token}`;
+        console.log("Header", headers == true);
     }
-    console.log("Headers:", headers);
     
     return { headers };
 }
