@@ -49,7 +49,7 @@ function CreateNewForm() {
         const token = getToken();
 
         setSubmitted(true);
-        const { success, statusCode, message } = await axiosPost(requestBody, token, username);
+        const { success, statusCode, message } = await axiosPost("/mongo/notes", requestBody, token, username);
         setResponseMessage({ message, statusCode, success });
         if (success) {
             setTimeout(() => {

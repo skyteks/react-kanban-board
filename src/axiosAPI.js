@@ -23,12 +23,12 @@ async function axiosGet(uriPath, token = null, username = null) {
         });
 }
 
-async function axiosPost(uriPath, requestBody, username = null) {
+async function axiosPost(uriPath, requestBody, token = null, username = null) {
     if (!requestBody || Object.values(requestBody).some((value) => !value)) {
         console.error("POST", "Reqest Body has empty values", requestBody);
         return false;
     }
-    const header = createHeader(null, username);
+    const header = createHeader(token, username);
     const uri = backendUri + uriPath;
     console.log("POST", uriPath, requestBody);
 
@@ -55,7 +55,6 @@ async function axiosPatch(uriPath, requestBody, token, username) {
         return false;
     }
     const header = createHeader(token, username);
-    // TODO
     const uri = backendUri + uriPath + requestBody.data._id;
     console.log("PATCH", uriPath, requestBody);
 
@@ -80,7 +79,7 @@ function createHeader(token, username) {
         headers.Authorization = `Bearer ${token}`;
         console.log("Header", headers == true);
     }
-    
+
     return { headers };
 }
 
