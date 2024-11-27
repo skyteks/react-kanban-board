@@ -1,18 +1,20 @@
 .dropzone {
     justify-content: center;
     align-items: center;
+    min-height: fit-content;
 }
 
 .dropzone>* {
     width: 85%;
-    aspect-ratio: 1/1;
+    /*aspect-ratio: 1/1;*/
+    height: inherit;
     background-color: rgba(0, 0, 0, .1);
     border: rgba(0, 0, 0, .1) 3px dashed;
     border-radius: 1vw;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    margin: 15px;
 }
 
 .dropzone h4 {

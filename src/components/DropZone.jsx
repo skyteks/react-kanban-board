@@ -1,8 +1,8 @@
 import { useDrop } from "react-dnd";
+import "./DropZone.css";
 
 function DropZone({ hide, info, setInfo }) {
     const size = 15;
-    const mult = 0.26;
 
     const [{ canDrop, isOver }, dropRef] = useDrop(() => {
         return {
@@ -28,9 +28,9 @@ function DropZone({ hide, info, setInfo }) {
     }
 
     return (
-        <div className="dropzone" style={{ width: size + "vw", height: size * mult + "vw", display: (hide ? "none" : "flex") }}>
+        <div className="dropzone" style={{ width: size + "vw", display: (hide ? "none" : "flex") }}>
             <div ref={dropRef} onDrop={handleDrop} >
-                <h4 style={{ color: "" }}>{isActive ? "Release to drop" : "Drag a note here"}</h4>
+                <h4 style={{ color: "" }}>{isActive ? "Release" : "Drag here"}</h4>
             </div>
         </div>
     );
